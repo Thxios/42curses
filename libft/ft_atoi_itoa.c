@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_itoa.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:55:36 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/08 19:58:13 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/09 16:36:14 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	ft_isspace(char c)
 
 int	ft_atoi(const char *nptr)
 {
-	int			idx;
-	int			sign;
-	long long	ret;
+	int	idx;
+	int	sign;
+	int	ret;
 
 	idx = 0;
 	while (ft_isspace(nptr[idx]))
@@ -37,8 +37,55 @@ int	ft_atoi(const char *nptr)
 	while (ft_isdigit(nptr[idx]))
 	{
 		ret *= 10;
-		ret += nptr[idx] - '0';
+		ret += sign * (nptr[idx] - '0');
 		idx++;
 	}
-	return ((int)(sign * ret));
+	return (ret);
+}
+
+static int	get_len_num_str(int n)
+{
+	int	len_num;
+
+	len_num = 0;
+	if (n <= 0)
+		len_num++;
+	while (n)
+	{
+		n /= 10;
+		len_num++;
+	}
+	return (len_num);
+}
+
+static int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+char	*ft_itoa(int n)
+{
+	int		idx;
+	int		len_num;
+	char	*num_str;
+
+	len_num = get_len_num_str(n);
+	num_str = (char *)malloc(sizeof(char) * (len_num + 1));
+	if (!num_str)
+		return (NULL);
+	num_str[len_num] = '\0';
+	idx = len_num - 1;
+	if (n < 0)
+		num_str[0] = '-';
+	else if (n == 0)
+		num_str[0] = '0';
+	while (n)
+	{
+		num_str[idx] = ft_abs(n % 10) + '0';
+		n /= 10;
+		idx--;
+	}
+	return (num_str);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_l.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:36:09 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/08 19:45:13 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/09 17:07:30 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	idx;
 
@@ -27,7 +27,7 @@ size_t	ft_strlcpy(char *dest, char *src, size_t size)
 	return (ft_strlen(src));
 }
 
-size_t	ft_strlcat(char *dest, char *src, size_t size)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
 	size_t	idx;
 	size_t	len_dest;
