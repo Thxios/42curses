@@ -4,7 +4,10 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = libft.a
 
-SRCS = $(wildcard ft_*.c)
+BONUS_SRCS = $(wildcard ft_*_bonus.c)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+
+SRCS = $(filter-out $(BONUS_SRCS), $(wildcard ft_*.c))
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -16,11 +19,14 @@ $(NAME): $(OBJS)
 	ar rcs $@ $^
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+bonus: $(OBJS) $(BONUS_OBJS)
+	ar rcs $@ $^
+
+.PHONY: all clean fclean re bonus
