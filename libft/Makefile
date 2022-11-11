@@ -27,6 +27,9 @@ fclean: clean
 re:	fclean all
 
 bonus: $(OBJS) $(BONUS_OBJS)
-	ar rcs $@ $^
+	ar rcs $(NAME) $^
+
+test: test.c $(NAME)
+	$(CC) -fsanitize=address $^ -o $@
 
 .PHONY: all clean fclean re bonus

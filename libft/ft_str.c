@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:54:48 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/08 20:43:15 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/10 16:56:28 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strdup(const char *src)
 {
-	int		idx;
 	size_t	src_len;
 	char	*duplicated;
 
@@ -32,13 +31,7 @@ char	*ft_strdup(const char *src)
 	duplicated = (char *)malloc(sizeof(char) * (src_len + 1));
 	if (!duplicated)
 		return (NULL);
-	idx = 0;
-	while (src[idx] != '\0')
-	{
-		duplicated[idx] = src[idx];
-		idx++;
-	}
-	duplicated[idx] = '\0';
+	ft_strlcpy(duplicated, src, src_len + 1);
 	return (duplicated);
 }
 
@@ -53,8 +46,8 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 	idx = 0;
 	while ((idx + len_s2 <= len) && (s1[idx] != '\0'))
 	{
-		if (ft_strncmp(s1 + idx, s2, len_s2) == 0)
-			return ((char *)(s1 + idx));
+		if (ft_strncmp(&s1[idx], s2, len_s2) == 0)
+			return ((char *)&s1[idx]);
 		idx++;
 	}
 	return (NULL);

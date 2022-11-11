@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:16:51 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/08 19:38:56 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/10 17:54:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strchr(const char *s, int c)
 	idx = 0;
 	while (s[idx] != '\0')
 	{
-		if (s[idx] == c)
+		if (s[idx] == (char)c)
 			return ((char *)&s[idx]);
 		idx++;
 	}
@@ -49,7 +49,7 @@ char	*ft_strrchr(const char *s, int c)
 	idx = ft_strlen(s) - 1;
 	while (idx >= 0)
 	{
-		if (s[idx] == c)
+		if (s[idx] == (char)c)
 			return ((char *)&s[idx]);
 		idx--;
 	}
@@ -65,7 +65,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	idx = 0;
 	while (idx < n)
 	{
-		if (s_cptr[idx] == c)
+		if (s_cptr[idx] == (char)c)
 			return ((void *)&s_cptr[idx]);
 		idx++;
 	}

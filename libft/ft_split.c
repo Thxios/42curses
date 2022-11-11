@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:37:09 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/09 18:54:58 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/10 17:46:21 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	get_num_words(const char *s, char delimiter)
 	return (n_word);
 }
 
-static int	alloc_word(const char *start, char delimiter, char **out)
+static int	alloc_word(const char *start, int *idx, char delimiter, char **out)
 {
 	int	length;
 
@@ -42,8 +42,9 @@ static int	alloc_word(const char *start, char delimiter, char **out)
 		length++;
 	*out = (char *)malloc(sizeof(char) * (length + 1));
 	if (!(*out))
-		return (0);
+		return (-1);
 	ft_strlcpy(*out, start, length + 1);
+	*idx += length;
 	return (length);
 }
 
@@ -64,7 +65,6 @@ static void	*free_str_array(char **arr, int n)
 char	**ft_split(const char *s, char c)
 {
 	int		idx;
-	int		allocated;
 	int		n_word;
 	char	**ret;
 
@@ -78,13 +78,12 @@ char	**ft_split(const char *s, char c)
 	{
 		while (s[idx] == c)
 			idx++;
-		if (s[idx] == '\0')
-			break ;
-		allocated = alloc_word(&s[idx], c, &ret[n_word]);
-		if (!allocated)
-			return (free_str_array(ret, n_word));
-		idx += allocated;
-		n_word++;
+		if (s[idx] != '\0')
+		{
+			if (alloc_word(&s[idx], &idx, c, &ret[n_word]) == -1)
+				return (free_str_array(ret, n_word));
+			n_word++;
+		}
 	}
 	ret[n_word] = NULL;
 	return (ret);
