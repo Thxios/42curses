@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:36:09 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/09 17:07:30 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/12 17:57:42 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	size_t	idx;
 
 	idx = 0;
-	while ((src[idx] != '\0') && (idx + 1 < size))
+	while ((idx + 1 < size) && (src[idx] != '\0'))
 	{
 		dest[idx] = src[idx];
 		idx++;

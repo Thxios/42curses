@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:16:51 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/10 17:54:25 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/12 17:41:31 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int	ft_tolower(int c)
 char	*ft_strchr(const char *s, int c)
 {
 	int	idx;
+	int	len_s;
 
 	idx = 0;
-	while (s[idx] != '\0')
+	len_s = ft_strlen(s);
+	while (idx <= len_s)
 	{
 		if (s[idx] == (char)c)
 			return ((char *)&s[idx]);
@@ -46,7 +48,7 @@ char	*ft_strrchr(const char *s, int c)
 {
 	int	idx;
 
-	idx = ft_strlen(s) - 1;
+	idx = ft_strlen(s);
 	while (idx >= 0)
 	{
 		if (s[idx] == (char)c)

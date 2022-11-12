@@ -7,10 +7,15 @@ NAME = libft.a
 BONUS_SRCS = $(wildcard ft_*_bonus.c)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
-SRCS = $(filter-out $(BONUS_SRCS), $(wildcard ft_*.c))
+ifdef DO_BONUS
+	SRCS = $(wildcard ft_*.c)
+else
+	SRCS = $(filter-out $(BONUS_SRCS), $(wildcard ft_*.c))
+endif
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
+	sleep 1
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
@@ -26,10 +31,11 @@ fclean: clean
 
 re:	fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	ar rcs $(NAME) $^
+bonus:
+	make DO_BONUS=1 all
 
-test: test.c $(NAME)
-	$(CC) -fsanitize=address $^ -o $@
+test: libft_test.c $(NAME) $(BONUS_OBJS)
+	make bonus
+	$(CC) -fsanitize=address -Wno-format $^ -o test
 
 .PHONY: all clean fclean re bonus

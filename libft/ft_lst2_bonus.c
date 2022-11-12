@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list2_bonus.c                                   :+:      :+:    :+:   */
+/*   ft_lst2_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:57:19 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/09 19:17:21 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/12 17:38:01 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*cur;
-	t_list	*new_cur;
+	t_list	*temp;
 
 	cur = *lst;
 	while (cur)
 	{
-		(*del)(cur->content);
-		new_cur = cur;
+		temp = cur;
 		cur = cur->next;
-		free(new_cur);
+		ft_lstdelone(temp, del);
 	}
 	*lst = NULL;
 }
@@ -44,15 +43,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		(*f)(cur->content);
 		cur = cur->next;
 	}
-}
-
-static t_list	*ft_lstdel_next(t_list *lst, void (*del)(void *))
-{
-	t_list	*new_cur;
-
-	new_cur = lst->next;
-	ft_lstdelone(lst, del);
-	return (new_cur);
 }
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
@@ -78,7 +68,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		else
 			new_begin = new_cur;
 		new_prev = new_cur;
-		cur = ft_lstdel_next(cur, del);
+		cur = cur->next;
 	}
 	return (new_begin);
 }

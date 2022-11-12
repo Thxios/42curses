@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:37:09 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/09 17:51:29 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/12 14:29:22 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	mapped = (char *)malloc(sizeof(char) * (len_src + 1));
 	if (!mapped)
 		return (NULL);
+	mapped[len_src] = '\0';
 	idx = 0;
 	while (idx < len_src)
 	{
