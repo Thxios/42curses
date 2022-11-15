@@ -6,25 +6,25 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:40:44 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/12 18:02:17 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:50:27 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*s_cptr;
+	char	*b_cptr;
 	size_t	idx;
 
-	s_cptr = (char *)s;
+	b_cptr = (char *)b;
 	idx = 0;
-	while (idx < n)
+	while (idx < len)
 	{
-		s_cptr[idx] = c;
+		b_cptr[idx] = c;
 		idx++;
 	}
-	return (s);
+	return (b);
 }
 
 void	*ft_bzero(void *s, size_t n)
@@ -38,8 +38,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	char	*src_cptr;
 	size_t	idx;
 
-	if (!dest || !src)
-		return (dest);
 	src_cptr = (char *)src;
 	dest_cptr = (char *)dest;
 	idx = 0;
@@ -58,9 +56,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	int		idx;
 	int		direction;
 
-	if (!dest || !src)
-		return (dest);
-	if (src <= dest && dest < src + n)
+	if (src < dest)
 	{
 		idx = n - 1;
 		direction = -1;

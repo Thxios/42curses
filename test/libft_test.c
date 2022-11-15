@@ -304,11 +304,33 @@ void test07()
 	char s[] = "   sa 23456ASDasdDgdj4^#2870 sadfa a5sdf";
 	char *sub;
 
-	sub = ft_substr("", 1, 1);
+	sub = ft_substr("", 2, 1);
 	printf("\"%s\" len %d\n", sub, ft_strlen(sub));
+}
+
+void test08()
+{
+	char src[100] = "0123456789abcdefghij..........";
+	char *s = src;
+	char *d = src+10;
+
+	printf("target string:\n");
+	printf("\"%s\" len %d\n", src, ft_strlen(src));
+
+	printf("source \"%s\" len %d\n", s, ft_strlen(s));
+
+	ft_memmove(d, s, 15);
+	printf("dest   \"%s\" len %d\n", d, ft_strlen(d));
+	printf("target string:\n");
+	printf("\"%s\" len %d\n", src, ft_strlen(src));
+}
+
+void test09()
+{
+	strnstr(NULL, "fake", 3);
 }
 
 int main()
 {
-	test07();
+	test09();
 }

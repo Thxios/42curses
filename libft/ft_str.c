@@ -6,18 +6,18 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:54:48 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/12 17:42:26 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:48:38 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
 	size_t	length;
 
 	length = 0;
-	while (str[length] != '\0')
+	while (s[length] != '\0')
 		length++;
 	return (length);
 }
@@ -40,8 +40,6 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 	size_t	len_s2;
 	size_t	idx;
 
-	if (!s1 || !s2)
-		return (NULL);
 	len_s2 = ft_strlen(s2);
 	if (len_s2 == 0)
 		return ((char *)s1);

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:57:19 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/12 17:38:01 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/15 17:04:55 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,42 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	}
 }
 
+static void	ft_addback_last(t_list **begin, t_list **end, t_list *new)
+{
+	if (*end)
+	{
+		(*end)->next = new;
+		*end = new;
+	}
+	else
+	{
+		*begin = new;
+		*end = new;
+	}
+}
+
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new_begin;
-	t_list	*new_prev;
-	t_list	*new_cur;
+	t_list	*new_end;
+	t_list	*new_node;
 	t_list	*cur;
+	void	*new_content;
 
 	new_begin = NULL;
-	new_prev = NULL;
+	new_end = NULL;
 	cur = lst;
 	while (cur)
 	{
-		new_cur = ft_lstnew((*f)(cur->content));
-		if (!new_cur)
+		new_content = (*f)(cur->content);
+		new_node = ft_lstnew(new_content);
+		if (!new_node)
 		{
+			(*del)(new_content);
 			ft_lstclear(&new_begin, del);
 			return (NULL);
 		}
-		if (new_prev)
-			new_prev->next = new_cur;
-		else
-			new_begin = new_cur;
-		new_prev = new_cur;
+		ft_addback_last(&new_begin, &new_end, new_node);
 		cur = cur->next;
 	}
 	return (new_begin);

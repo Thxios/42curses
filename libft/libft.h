@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:58:08 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/10 16:51:07 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:55:56 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
-size_t	ft_strlen(const char *str);
-void	*ft_memset(void *s, int c, size_t n);
+size_t	ft_strlen(const char *s);
+void	*ft_memset(void *b, int c, size_t len);
 void	*ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);

@@ -33,4 +33,8 @@ re:	fclean all
 bonus:
 	make DO_BONUS=1 all
 
+test: libft_test.c $(NAME) $(BONUS_OBJS)
+	make bonus
+	$(CC) -Wno-format $^ -o test
+
 .PHONY: all clean fclean re bonus
