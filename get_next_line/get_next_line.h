@@ -6,27 +6,32 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:03:56 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/17 17:58:28 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/20 15:53:58 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_string
+typedef struct s_buffer
 {
-	char	*buffer;
 	size_t	len;
 	size_t	capacity;
-}			t_string;
+	int		n_lines;
+	char	*buffer;
+}			t_buffer;
 
-char	*get_next_line(int fd);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-int		init_string(t_string *str, size_t init_capa);
-void	del_string(t_string *str);
-int		push_string(t_string *str, char c);
+char		*get_next_line(int fd);
+void		*ft_memmove(void *dest, const void *src, size_t n);
+int			init_buffer(t_buffer *buffer, size_t init_capa);
+void		delete_buffer(t_buffer *buffer);
+int			push_buffer(t_buffer *buffer, char *s, size_t len);
 
 #endif

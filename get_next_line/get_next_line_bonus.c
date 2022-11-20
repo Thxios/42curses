@@ -6,57 +6,97 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:04:22 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/18 03:00:36 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/20 15:59:31 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*str_as_cstring(t_string *str)
+t_buffer	*map_find_buffer(t_map *map, int fd)
 {
+	t_buffer	*node;
+
+	if (fd < 0)
+		return (NULL);
+	node = map->begin;
+	while (node)
+	{
+		if (node->fd == fd)
+			return (node);
+		node = node->next;
+	}
+	return (make_new_buffer(map, fd, 16));
+}
+
+char	*buffer_as_string(t_buffer *buffer)
+{
+	size_t	len;
 	char	*cstring;
 
-	if (str->len == 0)
+	len = 0;
+	while ((len < buffer->len) && (buffer->buffer[len] != '\n'))
+		len++;
+	if ((len < buffer->len) && (buffer->buffer[len] == '\n'))
+		len++;
+	if (len == 0)
 		return (NULL);
-	cstring = (char *)malloc(sizeof(char) * (str->len + 1));
-	if (!cstring)
-		return (NULL);
-	ft_memcpy(cstring, str->buffer, str->len);
-	cstring[str->len] = '\0';
+	if (buffer->buffer[len - 1] == '\n')
+		buffer->n_lines--;
+	cstring = (char *)malloc(sizeof(char) * (len + 1));
+	ft_memmove(cstring, buffer->buffer, len);
+	cstring[len] = '\0';
+	ft_memmove(buffer->buffer, buffer->buffer + len, buffer->len - len);
+	buffer->len -= len;
 	return (cstring);
 }
 
-int	get_line_to_tsring(int fd, t_string *str)
+int	get_line_buffer(int fd, t_buffer *buffer)
 {
-	int		read_result;
 	int		n_bytes;
-	char	c;
+	int		get_line_result;
+	char	*c;
 
-	while (1)
+	c = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	if (!c)
+		return (-1);
+	get_line_result = 0;
+	while (get_line_result == 0)
 	{
-		n_bytes = read(fd, &c, 1);
+		n_bytes = read(fd, c, BUFFER_SIZE);
 		if (n_bytes == -1)
-			return (-1);
+			get_line_result = -1;
 		else if (n_bytes == 0)
-			return (0);
-		if (push_string(str, c) == -1)
-			return (-1);
-		if (c == '\n')
-			return (0);
+			get_line_result = 2;
+		else if (push_buffer(buffer, c, n_bytes) == -1)
+			get_line_result = -1;
+		else if (buffer->n_lines > 0)
+			get_line_result = 1;
 	}
+	free(c);
+	return (get_line_result);
 }
 
 char	*get_next_line(int fd)
 {
-	t_string	str;
-	char		*ret_cstring;
+	static t_map	buffer_map;
+	t_buffer		*buffer;
+	int				get_line_res;
+	char			*ret_cstring;
 
-	if (init_string(&str, 16) == -1)
+	buffer = map_find_buffer(&buffer_map, fd);
+	if (!buffer)
 		return (NULL);
-	if (get_line_to_tsring(fd, &str) == -1)
-		ret_cstring = NULL;
+	if (buffer->n_lines > 0)
+		ret_cstring = buffer_as_string(buffer);
 	else
-		ret_cstring = str_as_cstring(&str);
-	del_string(&str);
+	{
+		get_line_res = get_line_buffer(fd, buffer);
+		if ((get_line_res == 1) || (get_line_res == 2))
+			ret_cstring = buffer_as_string(buffer);
+		else
+			ret_cstring = NULL;
+		if ((get_line_res == -1) || (get_line_res == 2))
+			delete_buffer(&buffer_map, buffer);
+	}
 	return (ret_cstring);
 }

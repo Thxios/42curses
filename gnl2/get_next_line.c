@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:04:22 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/19 18:54:27 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/20 15:42:13 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*str_as_cstring(t_string *str)
 	cstring = (char *)malloc(sizeof(char) * (len + 1));
 	cstring[len] = '\0';
 	ft_memcpy(cstring, &str->buffer[str->offset], len);
-	// memcpy(cstring, &str->buffer[str->offset], len);
 	str->offset += len;
 	if (cstring[len - 1] == '\n')
 		str->n_lines--;

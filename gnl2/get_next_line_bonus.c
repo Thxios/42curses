@@ -3,49 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:04:22 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/19 19:21:27 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/20 15:59:17 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include <stdio.h>
 
-t_buffer	*find_fd_buffer(int fd, t_manager *manager)
+t_buffer	*map_find_buffer(t_map *map, int fd)
 {
-	int	idx = 0;
+	t_buffer	*node;
 
-	while (idx < manager->len)
+	if (fd < 0)
+		return (NULL);
+	node = map->begin;
+	while (node)
 	{
-		if
+		if (node->fd == fd)
+			return (node);
+		node = node->next;
 	}
+	return (make_new_buffer(map, fd, 16));
 }
 
-char	*str_as_cstring(t_buffer *str)
+char	*str_as_cstring(t_buffer *buffer)
 {
 	size_t	len;
 	char	*cstring;
 
+	// printf("make cstring - len %lu, capa %lu, nl %d\n",
+	// 	buffer->len, buffer->capacity, buffer->n_lines);
 	len = 0;
-	while ((str->offset + len < str->len)
-		&& (str->buffer[str->offset + len] != '\n'))
+	while ((len < buffer->len) && (buffer->buffer[len] != '\n'))
 		len++;
-	if ((str->offset + len < str->len)
-		&& (str->buffer[str->offset + len] == '\n'))
+	if ((len < buffer->len) && (buffer->buffer[len] == '\n'))
 		len++;
 	if (len == 0)
 		return (NULL);
+	// printf("cstring len %lu\n", len);
+	if (buffer->buffer[len - 1] == '\n')
+		buffer->n_lines--;
 	cstring = (char *)malloc(sizeof(char) * (len + 1));
+	ft_memmove(cstring, buffer->buffer, len);
 	cstring[len] = '\0';
-	ft_memcpy(cstring, &str->buffer[str->offset], len);
-	str->offset += len;
-	if (cstring[len - 1] == '\n')
-		str->n_lines--;
+	ft_memmove(buffer->buffer, buffer->buffer + len, buffer->len - len);
+	buffer->len -= len;
 	return (cstring);
 }
 
-int	get_line_to_tsring(int fd, t_buffer *str)
+int	get_line_buffer(int fd, t_buffer *buffer)
 {
 	int		n_bytes;
 	int		get_line_result;
@@ -62,9 +71,9 @@ int	get_line_to_tsring(int fd, t_buffer *str)
 			get_line_result = -1;
 		else if (n_bytes == 0)
 			get_line_result = 2;
-		else if (push_string(str, c, n_bytes) == -1)
+		else if (push_buffer(buffer, c, n_bytes) == -1)
 			get_line_result = -1;
-		else if (str->n_lines > 0)
+		else if (buffer->n_lines > 0)
 			get_line_result = 1;
 	}
 	free(c);
@@ -73,23 +82,28 @@ int	get_line_to_tsring(int fd, t_buffer *str)
 
 char	*get_next_line(int fd)
 {
-	static t_buffer	buffer;
+	static t_map	buffer_map;
+	t_buffer		*buffer;
 	int				get_line_res;
 	char			*ret_cstring;
 
-	if (init_string(&buffer, 10) == -1)
+	buffer = map_find_buffer(&buffer_map, fd);
+	if (!buffer)
 		return (NULL);
-	if (buffer.n_lines > 0)
-		ret_cstring = str_as_cstring(&buffer);
+	// printf("get line start - len %lu, capa %lu, nl %d\n",
+	// 	buffer->len, buffer->capacity, buffer->n_lines);
+	if (buffer->n_lines > 0)
+		ret_cstring = str_as_cstring(buffer);
 	else
 	{
-		get_line_res = get_line_to_tsring(fd, &buffer);
+		get_line_res = get_line_buffer(fd, buffer);
 		if ((get_line_res == 1) || (get_line_res == 2))
-			ret_cstring = str_as_cstring(&buffer);
+			ret_cstring = str_as_cstring(buffer);
 		else
 			ret_cstring = NULL;
 		if ((get_line_res == -1) || (get_line_res == 2))
-			del_string(&buffer);
+			delete_buffer(&buffer_map, buffer);
 	}
+	// printf("get line done\n");
 	return (ret_cstring);
 }

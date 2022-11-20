@@ -6,76 +6,95 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:04:30 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/17 17:58:17 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/20 16:00:58 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	char	*dest_cptr;
 	char	*src_cptr;
-	size_t	idx;
+	int		idx;
+	int		direction;
 
+	if (src < dest)
+	{
+		idx = n - 1;
+		direction = -1;
+	}
+	else
+	{
+		idx = 0;
+		direction = 1;
+	}
 	src_cptr = (char *)src;
 	dest_cptr = (char *)dest;
-	idx = 0;
-	while (idx < n)
+	while (0 <= idx && idx < (int)n)
 	{
 		dest_cptr[idx] = src_cptr[idx];
-		idx++;
+		idx += direction;
 	}
 	return (dest);
 }
 
-int	init_string(t_string *str, size_t init_capa)
+int	init_buffer(t_buffer *buffer, size_t init_capa)
 {
-	str->capacity = init_capa;
-	str->buffer = (char *)malloc(sizeof(char) * init_capa);
-	if (!str->buffer)
-	{
-		del_string(str);
+	if (buffer->capacity > 0)
+		return (0);
+	buffer->buffer = (char *)malloc(sizeof(char) * init_capa);
+	if (!buffer->buffer)
 		return (-1);
-	}
-	str->len = 0;
+	buffer->len = 0;
+	buffer->capacity = init_capa;
+	buffer->n_lines = 0;
 	return (0);
 }
 
-void	del_string(t_string *str)
+void	delete_buffer(t_buffer *buffer)
 {
-	free(str->buffer);
-	str->buffer = NULL;
-	str->capacity = 0;
+	free(buffer->buffer);
+	buffer->buffer = NULL;
+	buffer->len = 0;
+	buffer->capacity = 0;
+	buffer->n_lines = 0;
 }
 
-int	expand_buffer(t_string *str)
+int	expand_buffer(t_buffer *buffer)
 {
 	char	*expanded;
 	size_t	new_capa;
 
-	new_capa = str->capacity * 2;
+	new_capa = 2 * buffer->capacity;
 	expanded = (char *)malloc(sizeof(char) * new_capa);
 	if (!expanded)
-	{
-		del_string(str);
 		return (-1);
-	}
-	ft_memcpy(expanded, str->buffer, str->capacity);
-	free(str->buffer);
-	str->buffer = expanded;
-	str->capacity = new_capa;
+	ft_memmove(expanded, buffer->buffer, buffer->len);
+	free(buffer->buffer);
+	buffer->capacity = new_capa;
+	buffer->buffer = expanded;
 	return (0);
 }
 
-int	push_string(t_string *str, char c)
+int	push_buffer(t_buffer *buffer, char *s, size_t len)
 {
-	if (str->len == str->capacity)
+	size_t	idx;
+
+	idx = 0;
+	while (idx < len)
 	{
-		if (expand_buffer(str) == -1)
-			return (-1);
+		if (buffer->len == buffer->capacity)
+		{
+			if (expand_buffer(buffer) == -1)
+				return (-1);
+		}
+		buffer->buffer[buffer->len] = s[idx];
+		if (s[idx] == '\n')
+			buffer->n_lines++;
+		idx++;
+		buffer->len++;
 	}
-	str->buffer[str->len] = c;
-	str->len++;
 	return (0);
 }
