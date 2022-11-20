@@ -1,0 +1,36 @@
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+NAME = libftprintf.a
+
+BONUS_SRCS = $(wildcard ft_*_bonus.c)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+
+ifdef DO_BONUS
+	SRCS = $(wildcard ft_*.c)
+else
+	SRCS = $(filter-out $(BONUS_SRCS), $(wildcard ft_*.c))
+endif
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+$(NAME): $(OBJS)
+	ar rcs $@ $^
+
+clean:
+	rm -f $(OBJS) $(BONUS_OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re:	fclean all
+
+bonus:
+	make DO_BONUS=1 all
+
+.PHONY: all clean fclean re bonus
