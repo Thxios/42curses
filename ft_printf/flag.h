@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   flag.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 02:28:44 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/21 15:08:44 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/21 15:14:16 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/21 15:44:36 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FLAG_H
+# define FLAG_H
 
-int	ft_printf_internal(const char *format_string, va_list *ap)
+# include "libft/libft.h"
+
+typedef struct s_flag
 {
-	
-}
+	int		left_align;
+	int		show_positive_sign;
+	int		show_positive_blank;
+	int		pad_zero;
+}			t_flag;
 
-int	ft_printf(const char *format_string, ...)
-{
-	va_list	ap;
-	int		ret_code;
-
-	va_start(ap, format_string);
-	ret_code = ft_printf_internal(format_string, &ap);
-	va_end(ap);
-	return (ret_code);
-}
+#endif

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   flag.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 02:28:44 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/21 15:08:44 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/21 15:14:03 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/21 15:44:50 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "flag.h"
 
-int	ft_printf_internal(const char *format_string, va_list *ap)
+t_flag	*parse_flag(const char *s)
 {
-	
-}
+	int		idx;
+	t_flag	*ret;
 
-int	ft_printf(const char *format_string, ...)
-{
-	va_list	ap;
-	int		ret_code;
-
-	va_start(ap, format_string);
-	ret_code = ft_printf_internal(format_string, &ap);
-	va_end(ap);
-	return (ret_code);
+	ret = (t_flag *)malloc(sizeof(t_flag));
+	if (!ret)
+		return (NULL);
+	ft_memset(ret, 0, sizeof(t_flag));
+	idx = 0;
 }

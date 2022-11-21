@@ -3,56 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:04:30 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/20 15:48:42 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/21 17:00:36 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+t_buffer	*init_buffer(int fd, size_t init_capa)
 {
-	char	*dest_cptr;
-	char	*src_cptr;
-	int		idx;
-	int		direction;
+	t_buffer	*buffer;
 
-	if (src < dest)
+	buffer = (t_buffer *)malloc(sizeof(t_buffer));
+	if (!buffer)
+		return (NULL);
+	buffer->buffer = (char *)malloc(sizeof(char) * init_capa);
+	if (!buffer->buffer)
 	{
-		idx = n - 1;
-		direction = -1;
+		free(buffer);
+		return (NULL);
 	}
-	else
-	{
-		idx = 0;
-		direction = 1;
-	}
-	src_cptr = (char *)src;
-	dest_cptr = (char *)dest;
-	while (0 <= idx && idx < (int)n)
-	{
-		dest_cptr[idx] = src_cptr[idx];
-		idx += direction;
-	}
-	return (dest);
+	buffer->fd = fd;
+	buffer->len = 0;
+	buffer->capacity = init_capa;
+	buffer->n_lines = 0;
+	return (buffer);
 }
 
 t_buffer	*make_new_buffer(t_map *map, int fd, size_t init_capa)
 {
 	t_buffer	*node;
 
-	node = (t_buffer *)malloc(sizeof(t_buffer));
+	node = init_buffer(fd, init_capa);
 	if (!node)
 		return (NULL);
-	node->buffer = (char *)malloc(sizeof(char) * init_capa);
-	if (!node->buffer)
-		return (NULL);
-	node->fd = fd;
-	node->len = 0;
-	node->capacity = init_capa;
-	node->n_lines = 0;
 	node->next = NULL;
 	node->prev = map->end;
 	if (map->end)
