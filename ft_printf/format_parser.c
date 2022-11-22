@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format.c                                           :+:      :+:    :+:   */
+/*   format_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:03 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 13:20:01 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/22 15:12:21 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,24 +83,38 @@ int	parse_precision(const char *s, t_format *format)
 int	parse_format(const char *s, t_format *format)
 {
 	if (s[0] == 'c')
-		format->type = c;
+		format->type = CHAR;
 	else if (s[0] == 's')
-		format->type = s;
+		format->type = STR;
 	else if (s[0] == 'p')
-		format->type = p;
+		format->type = PTR;
 	else if (s[0] == 'd')
-		format->type = d;
+		format->type = DEC;
 	else if (s[0] == 'i')
-		format->type = i;
+		format->type = INT;
 	else if (s[0] == 'u')
-		format->type = u;
+		format->type = UINT;
 	else if (s[0] == 'x')
-		format->type = x;
+		format->type = HEX_LOWER;
 	else if (s[0] == 'X')
-		format->type = X;
+		format->type = HEX_UPPER;
 	else if (s[0] == '%')
-		format->type = percent;
+		format->type = PERCENT;
 	else
-		return (0);
+		format->type = INVALID;
 	return (1);
+}
+
+int	parse_format_string(const char *s, t_format *format)
+{
+	int	idx;
+
+	idx = 0;
+	idx += parse_flag(s + idx, format);
+	idx += parse_width(s + idx, format);
+	idx += parse_precision(s + idx, format);
+	idx += parse_format(s + idx, format);
+	if (format->type == INVALID)
+		return (0);
+	return (idx);
 }

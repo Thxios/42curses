@@ -6,27 +6,28 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:16 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 13:17:44 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/22 15:31:00 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORMAT_H
 # define FORMAT_H
 
+# include <stdlib.h>
 # include "libft/libft.h"
 
 typedef enum e_ftype
 {
-	invalid = 0,
-	c,
-	s,
-	p,
-	d,
-	i,
-	u,
-	x,
-	X,
-	percent
+	INVALID = 0,
+	CHAR,
+	STR,
+	PTR,
+	DEC,
+	INT,
+	UINT,
+	HEX_LOWER,
+	HEX_UPPER,
+	PERCENT
 }	t_ftype;
 
 typedef struct s_format
@@ -41,6 +42,7 @@ typedef struct s_format
 	t_ftype	type;
 }			t_format;
 
-int			parse_format(const char *s, t_format *format);
+int	parse_format_string(const char *s, t_format *format);
+int	print_format(const char *s, int *idx_ptr);
 
 #endif

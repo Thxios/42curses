@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   format_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 02:29:19 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 15:31:08 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/22 15:12:36 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/22 15:32:12 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "format.h"
 
-# include <unistd.h>
-# include <stdarg.h>
+int	print_format(const char *s, int *idx_ptr)
+{
+	int			idx;
+	int			ret_size;
+	t_format	*format;
 
-# include "format.h"
-
-#endif
+	idx = *idx_ptr;
+	format = (t_format *)malloc(sizeof(t_format));
+	if (!format)
+		return (-1);
+	ft_memset(format, 0, sizeof(t_format));
+	idx += parse_format_string(&s[idx], format);
+	free(format);
+	*idx_ptr = idx;
+	return (ret_size);
+}

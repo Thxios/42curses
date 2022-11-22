@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   f_types.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 02:29:19 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 15:31:08 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/22 15:33:25 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/22 15:35:23 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef F_TYPES_H
+# define F_TYPES_H
 
-# include <unistd.h>
-# include <stdarg.h>
+#include "../format.h"
 
-# include "format.h"
 
 #endif

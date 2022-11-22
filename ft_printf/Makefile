@@ -4,14 +4,14 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
-BONUS_SRCS = $(wildcard ft_*_bonus.c)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+LIBFT_DIR =	libft
+LIBFT =		libft.a
+LIB =		$(LIBFT_DIR)/$(LIBFT)
 
-ifdef DO_BONUS
-	SRCS = $(wildcard ft_*.c)
-else
-	SRCS = $(filter-out $(BONUS_SRCS), $(wildcard ft_*.c))
-endif
+SRCS = 	ft_printf.c \
+		format_parser.c \
+		format_print.c
+
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -19,10 +19,14 @@ all: $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIB)
 	ar rcs $@ $^
 
+$(LIB):
+	make all -C $(LIBFT_DIR)
+
 clean:
+	make fclean -C $(LIBFT_DIR)
 	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean

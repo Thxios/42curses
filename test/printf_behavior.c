@@ -52,4 +52,8 @@ int main()
 	printf("\n%%:\n");
 	ret = printf("|% 10|\n", 1234);
 	printf("ret %d\n", ret);
+
+	printf("\n%%10%%\n");
+	ret = printf("|%10%|\n", 1234);
+	printf("ret %d\n", ret);
 }
