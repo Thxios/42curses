@@ -34,7 +34,7 @@ all: $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
 
-$(NAME): $(LIB) $(OBJS) 
+$(NAME): $(LIB) $(OBJS)
 	cp $< $@
 	ar rcs $@ $^
 
@@ -50,8 +50,9 @@ fclean: clean
 
 re:	fclean all
 
-test: test.c $(NAME)
-	gcc $^ -o $@
+test: test.c $(NAME) $(FUNC_BONUS_OBJS)
+	make DO_BONUS=1 $(NAME)
+	gcc test.c $(NAME) -o $@
 
 bonus:
 	make DO_BONUS=1 all

@@ -48,5 +48,9 @@ int main() {
 	my = ft_printf("|% -10d|\n", 1234);
 	abs = printf("|% -10d|\n", 1234);
 	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%+-10d|\n", 1234);
+	abs = printf("|%+-10d|\n", 1234);
+	printf("my %d, abs %d\n\n", my, abs);
 }
 
