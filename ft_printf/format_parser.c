@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   format_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:03 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 15:12:21 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/22 17:20:29 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "format.h"
+#include "format_parser.h"
 
 int	parse_flag(const char *s, t_format *format)
 {
@@ -101,7 +101,10 @@ int	parse_format(const char *s, t_format *format)
 	else if (s[0] == '%')
 		format->type = PERCENT;
 	else
+	{
 		format->type = INVALID;
+		return (0);
+	}
 	return (1);
 }
 
@@ -114,7 +117,5 @@ int	parse_format_string(const char *s, t_format *format)
 	idx += parse_width(s + idx, format);
 	idx += parse_precision(s + idx, format);
 	idx += parse_format(s + idx, format);
-	if (format->type == INVALID)
-		return (0);
 	return (idx);
 }

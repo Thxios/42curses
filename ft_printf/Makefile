@@ -8,16 +8,25 @@ LIBFT_DIR =	libft
 LIBFT =		libft.a
 LIB =		$(LIBFT_DIR)/$(LIBFT)
 
-SRCS = 	ft_printf.c \
-		format_parser.c \
-		format_print.c
+BASE_SRCS =	ft_printf.c \
+			format_parser.c \
+			format_print.c
 
+ifdef DO_BONUS
+	FUNC_SRCS = $(wildcard f_types/*.c)
+else
+	FUNC_SRCS = $(wildcard f_types/*.c)
+endif
+
+SRCS = $(BASE_SRCS) $(FUNC_SRCS)
 OBJS = $(SRCS:.c=.o)
+
+INCLUDES = .
 
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
 
 $(NAME): $(OBJS) $(LIB)
 	ar rcs $@ $^
@@ -35,6 +44,8 @@ fclean: clean
 re:	fclean all
 
 bonus:
-	make DO_BONUS=1 all
+
+test: test.c $(NAME)
+	gcc $^ -o $@
 
 .PHONY: all clean fclean re bonus

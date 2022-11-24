@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   format_print.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 02:29:19 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:33:22 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/22 17:05:47 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/22 17:07:50 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FORMAT_PRINT_H
+# define FORMAT_PRINT_H
 
-# include <unistd.h>
+# include <stdlib.h>
 # include <stdarg.h>
+# include "format.h"
+# include "format_parser.h"
+# include "libft/libft.h"
+# include "f_types/f_types.h"
 
-# include "format_print.h"
-
-int	ft_printf(const char *format_string, ...);
+int	print_format(const char *s, va_list ap, int *idx_ptr);
 
 #endif

@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   func_invalid_percent.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 02:29:19 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:33:22 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/22 16:50:24 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/22 16:52:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "f_types.h"
 
-# include <unistd.h>
-# include <stdarg.h>
+int	print_invalid(t_format *format, va_list ap)
+{
+	(void)format;
+	(void)ap;
+	write(STDIN_FILENO, "%", 1);
+	return (1);
+}
 
-# include "format_print.h"
-
-int	ft_printf(const char *format_string, ...);
-
-#endif
+int	print_percent(t_format *format, va_list ap)
+{
+	(void)format;
+	(void)ap;
+	write(STDIN_FILENO, "%", 1);
+	return (1);
+}

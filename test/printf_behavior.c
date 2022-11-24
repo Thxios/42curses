@@ -45,15 +45,28 @@ int main()
 	ret = printf("|%10.5d|\n", 1234);
 	printf("ret %d\n", ret);
 
-	printf("\n%%00d:\n");
+	printf("\n%%005d:\n");
 	ret = printf("|%005d|\n", 1234);
 	printf("ret %d\n", ret);
 
-	printf("\n%%:\n");
+	printf("\n%% 10:\n");
 	ret = printf("|% 10|\n", 1234);
 	printf("ret %d\n", ret);
 
 	printf("\n%%10%%\n");
 	ret = printf("|%10%|\n", 1234);
+	printf("ret %d\n", ret);
+
+	printf("\n%%d\n");
+	ret = printf("|%d|\n", 214748364899ll);
+	printf("ret %d\n", ret);
+
+	char *s = "asdf";
+	printf("\n%% 15p\n");
+	ret = printf("|% 15p|\n", s);
+	printf("ret %d\n", ret);
+
+	printf("\n%%u\n");
+	ret = printf("|%u|\n", 214748364899ll);
 	printf("ret %d\n", ret);
 }
