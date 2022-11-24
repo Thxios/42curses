@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   func_invalid_percent.c                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 16:50:24 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:38:23 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/24 15:04:15 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/24 16:09:48 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "f_types.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	print_invalid(t_format *format, va_list ap)
-{
-	(void)format;
-	(void)ap;
-	return (0);
-}
+# include <unistd.h>
+# include "libft/libft.h"
 
-int	print_percent(t_format *format, va_list ap)
-{
-	(void)format;
-	(void)ap;
-	write(STDOUT_FILENO, "%", 1);
-	return (1);
-}
+int		get_len_num(long long n, int n_base);
+void	ft_putnbr_base(long long num, char *base);
+void	ft_putnbr(long long n);
+int		get_len_num_u(unsigned long long n, int n_base);
+void	ft_putnbr_base_u(unsigned long long num, char *base);
+
+int		ft_max(int a, int b);
+void	put_n_times(char c, int n);
+
+#endif

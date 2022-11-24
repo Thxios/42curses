@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   func_invalid_percent.c                             :+:      :+:    :+:   */
+/*   pad_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 16:50:24 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:38:23 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/24 16:00:52 by jimlee            #+#    #+#             */
+/*   Updated: 2022/11/24 16:06:26 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "f_types.h"
+#include "utils.h"
 
-int	print_invalid(t_format *format, va_list ap)
+int	ft_max(int a, int b)
 {
-	(void)format;
-	(void)ap;
-	return (0);
+	if (a > b)
+		return (a);
+	return (b);
 }
 
-int	print_percent(t_format *format, va_list ap)
+void	put_n_times(char c, int n)
 {
-	(void)format;
-	(void)ap;
-	write(STDOUT_FILENO, "%", 1);
-	return (1);
+	int	times;
+
+	times = 0;
+	while (times < n)
+	{
+		write(STDOUT_FILENO, &c, 1);
+		times++;
+	}
 }

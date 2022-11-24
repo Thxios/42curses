@@ -69,4 +69,12 @@ int main()
 	printf("\n%%u\n");
 	ret = printf("|%u|\n", 214748364899ll);
 	printf("ret %d\n", ret);
+
+	printf("\n%%+10d:\n");
+	ret = printf("|%+10d|\n", 1234);
+	printf("ret %d\n", ret);
+
+	printf("\n%% -10d:\n");
+	ret = printf("|% -10d|\n", 1234);
+	printf("ret %d\n", ret);
 }

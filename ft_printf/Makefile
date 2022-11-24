@@ -10,16 +10,22 @@ LIB =		$(LIBFT_DIR)/$(LIBFT)
 
 BASE_SRCS =	ft_printf.c \
 			format_parser.c \
-			format_print.c
+			format_print.c \
+			$(wildcard utils/*.c)
+BASE_OBJS = $(BASE_SRCS:.c=.o)
+
+
+FUNC_SRCS = $(wildcard f_types/*.c)
+FUNC_BONUS_SRCS = $(wildcard f_types_bonus/*.c)
+
+FUNC_OBJS = $(FUNC_SRCS:.c=.o)
+FUNC_BONUS_OBJS = $(FUNC_BONUS_SRCS:.c=.o)
 
 ifdef DO_BONUS
-	FUNC_SRCS = $(wildcard f_types/*.c)
+	OBJS = $(BASE_OBJS) $(FUNC_BONUS_OBJS)
 else
-	FUNC_SRCS = $(wildcard f_types/*.c)
+	OBJS = $(BASE_OBJS) $(FUNC_OFUNC_BONUS_OBJS)
 endif
-
-SRCS = $(BASE_SRCS) $(FUNC_SRCS)
-OBJS = $(SRCS:.c=.o)
 
 INCLUDES = .
 
@@ -28,7 +34,8 @@ all: $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
 
-$(NAME): $(OBJS) $(LIB)
+$(NAME): $(LIB) $(OBJS) 
+	cp $< $@
 	ar rcs $@ $^
 
 $(LIB):
@@ -36,16 +43,17 @@ $(LIB):
 
 clean:
 	make fclean -C $(LIBFT_DIR)
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -f $(BASE_OBJS) $(FUNC_OBJS) $(FUNC_BONUS_OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re:	fclean all
 
-bonus:
-
 test: test.c $(NAME)
 	gcc $^ -o $@
+
+bonus:
+	make DO_BONUS=1 all
 
 .PHONY: all clean fclean re bonus

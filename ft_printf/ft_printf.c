@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 02:28:44 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 18:02:24 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/24 15:41:51 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_printf_internal(const char *format_string, va_list ap)
 	size = 0;
 	while (format_string[idx] != '\0')
 	{
-		// printf("print %02d: \'%c\'\n", idx, format_string[idx]);
 		if (format_string[idx] == '%')
 		{
 			idx++;

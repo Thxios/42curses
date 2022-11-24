@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_types.h                                          :+:      :+:    :+:   */
+/*   f_types_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:33:25 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:47:06 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/24 16:18:00 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef F_TYPES_H
-# define F_TYPES_H
+#ifndef F_TYPES_BONUS_H
+# define F_TYPES_BONUS_H
 
 # include <stdarg.h>
 # include <unistd.h>
