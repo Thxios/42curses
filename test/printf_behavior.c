@@ -77,4 +77,12 @@ int main()
 	printf("\n%% -10d:\n");
 	ret = printf("|% -10d|\n", 1234);
 	printf("ret %d\n", ret);
+
+	printf("\n%%20.10d:\n");
+	ret = printf("|%20.10d|\n", -1234);
+	printf("ret %d\n", ret);
+
+	printf("\n%% .10d:\n");
+	ret = printf("|% .10d|\n", 1234);
+	printf("ret %d\n", ret);
 }

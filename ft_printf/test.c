@@ -52,5 +52,37 @@ int main() {
 	my = ft_printf("|%+-10d|\n", 1234);
 	abs = printf("|%+-10d|\n", 1234);
 	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%010d|\n", -1234);
+	abs = printf("|%010d|\n", -1234);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%20.10d|\n", -1234);
+	abs = printf("|%20.10d|\n", -1234);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|% .10d|\n", 1234);
+	abs = printf("|% .10d|\n", 1234);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%.1d|\n", 0);
+	abs = printf("|%.1d|\n", 0);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%.2d|\n", 1);
+	abs = printf("|%.2d|\n", 1);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%.2d|\n", -1);
+	abs = printf("|%.2d|\n", -1);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|%.3d|\n", 11);
+	abs = printf("|%.3d|\n", 11);
+	printf("my %d, abs %d\n\n", my, abs);
+
+	my = ft_printf("|% 10.3d|\n", 11);
+	abs = printf("|% 10.3d|\n", 11);
+	printf("my %d, abs %d\n\n", my, abs);
 }
 

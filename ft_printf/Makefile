@@ -11,11 +11,15 @@ LIB =		$(LIBFT_DIR)/$(LIBFT)
 BASE_SRCS =	ft_printf.c \
 			format_parser.c \
 			format_print.c \
-			$(wildcard utils/*.c)
+			utils/num_utils.c \
+			utils/pad_utils.c
 BASE_OBJS = $(BASE_SRCS:.c=.o)
 
-
-FUNC_SRCS = $(wildcard f_types/*.c)
+FUNC_SRCS =	f_types/f_types.c \
+			f_types/func_char_str.c \
+			f_types/func_dec_int_uint.c \
+			f_types/func_hex_ptr.c \
+			f_types/func_invalid_percent.c
 FUNC_BONUS_SRCS = $(wildcard f_types_bonus/*.c)
 
 FUNC_OBJS = $(FUNC_SRCS:.c=.o)
@@ -24,12 +28,13 @@ FUNC_BONUS_OBJS = $(FUNC_BONUS_SRCS:.c=.o)
 ifdef DO_BONUS
 	OBJS = $(BASE_OBJS) $(FUNC_BONUS_OBJS)
 else
-	OBJS = $(BASE_OBJS) $(FUNC_OFUNC_BONUS_OBJS)
+	OBJS = $(BASE_OBJS) $(FUNC_OBJS)
 endif
 
 INCLUDES = .
 
 all: $(NAME)
+	sleep 1
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
@@ -50,8 +55,8 @@ fclean: clean
 
 re:	fclean all
 
-test: test.c $(NAME) $(FUNC_BONUS_OBJS)
-	make DO_BONUS=1 $(NAME)
+test: test.c $(BASE_OBJS) $(FUNC_BONUS_OBJS)
+	make bonus
 	gcc test.c $(NAME) -o $@
 
 bonus:

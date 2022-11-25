@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:03 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:43:08 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/25 16:16:37 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	parse_precision(const char *s, t_format *format)
 	idx = 0;
 	if (s[idx] == '.')
 	{
+		idx++;
 		while (s[idx] != '\0')
 		{
 			if (ft_isdigit(s[idx]))
