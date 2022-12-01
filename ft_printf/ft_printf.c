@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 02:28:44 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:41:51 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 13:08:35 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	ft_printf_internal(const char *format_string, va_list ap)
 {
 	int	idx;
+	int	format_size;
 	int	size;
 
 	idx = 0;
@@ -25,7 +26,10 @@ int	ft_printf_internal(const char *format_string, va_list ap)
 		if (format_string[idx] == '%')
 		{
 			idx++;
-			size += print_format(format_string, ap, &idx);
+			format_size = print_format(format_string, ap, &idx);
+			if (format_size == -1)
+				return (-1);
+			size += format_size;
 		}
 		else
 		{

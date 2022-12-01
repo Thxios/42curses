@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:03 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/25 16:16:37 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 13:14:05 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	parse_flag(const char *s, t_format *format)
 		if (ft_strchr("-0# +", s[idx]))
 		{
 			if (s[idx] == '-')
-				format->left_align = 1;
+				format->flag |= LEFT_ALIGN;
 			else if (s[idx] == '0')
-				format->pad_zero = 1;
+				format->flag |= PAD_ZERO;
 			else if (s[idx] == '#')
-				format->sharp = 1;
+				format->flag |= SHARP;
 			else if (s[idx] == ' ')
-				format->show_positive_blank = 1;
+				format->flag |= SHOW_POS_BLANK;
 			else if (s[idx] == '+')
-				format->show_positive_sign = 1;
+				format->flag |= SHOW_POS_SIGN;
 		}
 		else
 			break ;
@@ -44,15 +44,10 @@ int	parse_width(const char *s, t_format *format)
 	int	idx;
 
 	idx = 0;
-	while (s[idx] != '\0')
+	while (ft_isdigit(s[idx]))
 	{
-		if (ft_isdigit(s[idx]))
-		{
-			format->min_width *= 10;
-			format->min_width += s[idx] - '0';
-		}
-		else
-			break ;
+		format->min_width *= 10;
+		format->min_width += s[idx] - '0';
 		idx++;
 	}
 	return (idx);
@@ -66,15 +61,11 @@ int	parse_precision(const char *s, t_format *format)
 	if (s[idx] == '.')
 	{
 		idx++;
-		while (s[idx] != '\0')
+		format->flag |= PRECISION;
+		while (ft_isdigit(s[idx]))
 		{
-			if (ft_isdigit(s[idx]))
-			{
-				format->precision *= 10;
-				format->precision += s[idx] - '0';
-			}
-			else
-				break ;
+			format->precision *= 10;
+			format->precision += s[idx] - '0';
 			idx++;
 		}
 	}
@@ -118,5 +109,9 @@ int	parse_format_string(const char *s, t_format *format)
 	idx += parse_width(s + idx, format);
 	idx += parse_precision(s + idx, format);
 	idx += parse_format(s + idx, format);
+	if (format->flag & PRECISION)
+		format->flag &= ~PAD_ZERO;
+	if (format->type == INVALID)
+		return (-1);
 	return (idx);
 }

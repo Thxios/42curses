@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:16 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:06:47 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 13:04:52 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,21 @@ typedef enum e_ftype
 	PERCENT
 }	t_ftype;
 
+typedef enum e_flag
+{
+	LEFT_ALIGN = 1,
+	SHOW_POS_SIGN = 2,
+	SHOW_POS_BLANK = 4,
+	PAD_ZERO = 8,
+	SHARP = 16,
+	PRECISION = 32
+}	t_flag;
+
 typedef struct s_format
 {
-	int		left_align;				// '-'
-	int		show_positive_sign;		// '+'
-	int		show_positive_blank;	// ' '
-	int		pad_zero;				// '0'
-	int		sharp;					// '#'
+	int		flag;
 	int		min_width;
-	int		precision;				// '.'
+	int		precision;
 	t_ftype	type;
 }			t_format;
 

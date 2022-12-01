@@ -28,13 +28,13 @@ FUNC_BONUS_OBJS = $(FUNC_BONUS_SRCS:.c=.o)
 ifdef DO_BONUS
 	OBJS = $(BASE_OBJS) $(FUNC_BONUS_OBJS)
 else
-	OBJS = $(BASE_OBJS) $(FUNC_OBJS)
+	# OBJS = $(BASE_OBJS) $(FUNC_OBJS)
+	OBJS = $(BASE_OBJS) $(FUNC_BONUS_OBJS)
 endif
 
 INCLUDES = .
 
 all: $(NAME)
-	sleep 1
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
@@ -60,6 +60,6 @@ test: test.c $(BASE_OBJS) $(FUNC_BONUS_OBJS)
 	gcc test.c $(NAME) -o $@
 
 bonus:
-	make DO_BONUS=1 all
+	make DO_BONUS=1 all -C .
 
 .PHONY: all clean fclean re bonus

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 15:04:15 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/25 16:07:25 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 12:46:31 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int		get_len_num_u(unsigned long long n, int n_base);
 void	ft_putnbr_base_u(unsigned long long num, char *base);
 
 int		ft_max(int a, int b);
-void	put_n_times(char c, int n);
+int		put_n_times(char c, int n);
 
 #endif

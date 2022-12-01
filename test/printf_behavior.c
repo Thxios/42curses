@@ -85,4 +85,60 @@ int main()
 	printf("\n%% .10d:\n");
 	ret = printf("|% .10d|\n", 1234);
 	printf("ret %d\n", ret);
+
+	printf("\n%% +d:\n");
+	ret = printf("|% +d|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%020.10d:\n");
+	ret = printf("|%020.10d|\n", 1234);
+	printf("ret %d\n", ret);
+
+	printf("\n%%.d:\n");
+	ret = printf("|%.d|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%10.d:\n");
+	ret = printf("|%10.d|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%+.d:\n");
+	ret = printf("|%+.d|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%0#10x:\n");
+	ret = printf("|%0#10x|\n", 123);
+	printf("ret %d\n", ret);
+
+	printf("\n%%#10.0x:\n");
+	ret = printf("|%#10.0x|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%p:\n");
+	ret = printf("|%p|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%-10p:\n");
+	ret = printf("|%-10p|\n", 0);
+	printf("ret %d\n", ret);
+
+	printf("\n%%-10c:\n");
+	ret = printf("|%-10c|\n", 'T');
+	printf("ret %d\n", ret);
+
+	printf("\n%%20.10s:\n");
+	ret = printf("|%20.10s|\n", "abcde0123456789");
+	printf("ret %d\n", ret);
+
+	printf("\n%%10.0s:\n");
+	ret = printf("|%10.0s|\n", "abcde0123456789");
+	printf("ret %d\n", ret);
+
+	printf("\n%%10.0c:\n");
+	ret = printf("|%10.0c|\n", 'a');
+	printf("ret %d\n", ret);
+
+	printf("\n%%.10s:\n");
+	ret = printf("|%.10s|\n", "1234");
+	printf("ret %d\n", ret);
 }

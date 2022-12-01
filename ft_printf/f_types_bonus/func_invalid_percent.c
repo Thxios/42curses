@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_invalid_percent.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:50:24 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/25 16:38:47 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/30 11:00:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	print_percent(t_format *format, va_list ap)
 {
 	(void)format;
 	(void)ap;
-	write(STDOUT_FILENO, "%", 1);
+	ft_putchar_fd('%', STDOUT_FILENO);
 	return (1);
 }

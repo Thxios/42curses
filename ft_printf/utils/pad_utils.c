@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pad_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:00:52 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/25 16:07:30 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 12:46:35 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_max(int a, int b)
 	return (b);
 }
 
-void	put_n_times(char c, int n)
+int	put_n_times(char c, int n)
 {
 	int	times;
 
@@ -29,4 +29,5 @@ void	put_n_times(char c, int n)
 		write(STDOUT_FILENO, &c, 1);
 		times++;
 	}
+	return (n);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:12:36 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:08:15 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 13:07:41 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 int	print_format(const char *s, va_list ap, int *idx_ptr)
 {
 	int			idx;
+	int			parsed_size;
 	int			ret_size;
-	t_format	*format;
+	t_format	format;
 
 	idx = *idx_ptr;
-	format = (t_format *)malloc(sizeof(t_format));
-	if (!format)
+	ft_memset(&format, 0, sizeof(t_format));
+	parsed_size = parse_format_string(&s[idx], &format);
+	if (parsed_size == -1)
 		return (-1);
-	ft_memset(format, 0, sizeof(t_format));
-	idx += parse_format_string(&s[idx], format);
-	ret_size = print_argument(format, ap);
-	free(format);
-	*idx_ptr = idx;
+	ret_size = print_argument(&format, ap);
+	*idx_ptr += parsed_size;
 	return (ret_size);
 }

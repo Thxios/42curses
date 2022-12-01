@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   f_types.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:33:25 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:47:06 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/11/30 11:01:22 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define F_TYPES_H
 
 # include <stdarg.h>
-# include <unistd.h>
+# include <stdint.h>
 # include "format.h"
 # include "libft/libft.h"
 # include "utils/utils.h"
