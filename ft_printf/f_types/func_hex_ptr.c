@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:38:14 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/29 17:44:05 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/01 13:43:05 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ int	print_ptr(t_format *format, va_list ap)
 
 	(void)format;
 	val = va_arg(ap, uintptr_t);
+	if (val == 0)
+	{
+		ft_putstr_fd("(nil)", STDOUT_FILENO);
+		return (5);
+	}
 	put_size = 2 + get_len_num_u(val, 16);
-	write(STDOUT_FILENO, "0x", 2);
+	ft_putstr_fd("0x", STDOUT_FILENO);
 	ft_putnbr_base_u(val, "0123456789abcdef");
 	return (put_size);
 }

@@ -4,13 +4,12 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
-LIBFT_DIR =	libft
-LIBFT =		libft.a
-LIB =		$(LIBFT_DIR)/$(LIBFT)
+LIBFT =	libft/libft.a
+LIB =	$(LIBFT)
 
 BASE_SRCS =	ft_printf.c \
-			format_parser.c \
-			format_print.c \
+			format/format_parser.c \
+			format/format_print.c \
 			utils/num_utils.c \
 			utils/pad_utils.c
 BASE_OBJS = $(BASE_SRCS:.c=.o)
@@ -20,17 +19,15 @@ FUNC_SRCS =	f_types/f_types.c \
 			f_types/func_dec_int_uint.c \
 			f_types/func_hex_ptr.c \
 			f_types/func_invalid_percent.c
-FUNC_BONUS_SRCS = $(wildcard f_types_bonus/*.c)
-
 FUNC_OBJS = $(FUNC_SRCS:.c=.o)
-FUNC_BONUS_OBJS = $(FUNC_BONUS_SRCS:.c=.o)
 
-ifdef DO_BONUS
-	OBJS = $(BASE_OBJS) $(FUNC_BONUS_OBJS)
-else
-	# OBJS = $(BASE_OBJS) $(FUNC_OBJS)
-	OBJS = $(BASE_OBJS) $(FUNC_BONUS_OBJS)
-endif
+FUNC_BONUS_SRCS =	f_types_bonus/f_types_bonus.c \
+					f_types_bonus/func_char_str_bonus.c \
+					f_types_bonus/func_dec_int_uint_bonus.c \
+					f_types_bonus/func_hex_bonus.c \
+					f_types_bonus/func_ptr_bonus.c \
+					f_types_bonus/func_invalid_percent_bonus.c
+FUNC_BONUS_OBJS =	$(FUNC_BONUS_SRCS:.c=.o)
 
 INCLUDES = .
 
@@ -39,7 +36,7 @@ all: $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
 
-$(NAME): $(LIB) $(OBJS)
+$(NAME): $(LIB) $(BASE_OBJS) $(FUNC_OBJS)
 	cp $< $@
 	ar rcs $@ $^
 
@@ -55,11 +52,8 @@ fclean: clean
 
 re:	fclean all
 
-test: test.c $(BASE_OBJS) $(FUNC_BONUS_OBJS)
-	make bonus
-	gcc test.c $(NAME) -o $@
-
-bonus:
-	make DO_BONUS=1 all -C .
+bonus: $(LIB) $(BASE_OBJS) $(FUNC_BONUS_OBJS)
+	cp $< $(NAME)
+	ar rcs $(NAME) $^
 
 .PHONY: all clean fclean re bonus
