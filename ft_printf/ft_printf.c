@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 02:28:44 by jimlee            #+#    #+#             */
-/*   Updated: 2022/12/01 13:08:35 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:39:50 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_printf_internal(const char *format_string, va_list ap)
 {
@@ -33,7 +32,8 @@ int	ft_printf_internal(const char *format_string, va_list ap)
 		}
 		else
 		{
-			write(STDOUT_FILENO, &format_string[idx], 1);
+			if (ft_putchar(format_string[idx]) == -1)
+				return (-1);
 			size++;
 			idx++;
 		}

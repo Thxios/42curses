@@ -4,14 +4,15 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
-LIBFT =	libft/libft.a
-LIB =	$(LIBFT)
+LIBFT_DIR =	libft
+LIBFT =		$(LIBFT_DIR)/libft.a
 
 BASE_SRCS =	ft_printf.c \
 			format/format_parser.c \
 			format/format_print.c \
 			utils/num_utils.c \
-			utils/pad_utils.c
+			utils/pad_utils.c \
+			utils/print_utils.c
 BASE_OBJS = $(BASE_SRCS:.c=.o)
 
 FUNC_SRCS =	f_types/f_types.c \
@@ -36,11 +37,15 @@ all: $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $^ -o $@
 
-$(NAME): $(LIB) $(BASE_OBJS) $(FUNC_OBJS)
+ifdef BUILD_BONUS
+$(NAME): $(LIBFT) $(BASE_OBJS) $(FUNC_BONUS_OBJS)
+else
+$(NAME): $(LIBFT) $(BASE_OBJS) $(FUNC_OBJS)
+endif
 	cp $< $@
 	ar rcs $@ $^
 
-$(LIB):
+$(LIBFT):
 	make all -C $(LIBFT_DIR)
 
 clean:
@@ -52,8 +57,7 @@ fclean: clean
 
 re:	fclean all
 
-bonus: $(LIB) $(BASE_OBJS) $(FUNC_BONUS_OBJS)
-	cp $< $(NAME)
-	ar rcs $(NAME) $^
+bonus:
+	make BUILD_BONUS=1 all
 
 .PHONY: all clean fclean re bonus

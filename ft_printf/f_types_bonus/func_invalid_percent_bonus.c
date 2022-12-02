@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_invalid_percent_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:50:24 by jimlee            #+#    #+#             */
-/*   Updated: 2022/12/01 13:45:01 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:34:54 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,23 @@ int	print_invalid(t_format *format, va_list ap)
 
 int	print_percent(t_format *format, va_list ap)
 {
-	(void)format;
+	t_fstr	parsed;
+
 	(void)ap;
-	ft_putchar_fd('%', STDOUT_FILENO);
-	return (1);
+	ft_memset(&parsed, 0, sizeof(parsed));
+	parsed.size = 1;
+	if (format->min_width > parsed.size)
+	{
+		if (format->flag & LEFT_ALIGN)
+			parsed.post_pad = format->min_width - parsed.size;
+		else
+			parsed.pre_pad = format->min_width - parsed.size;
+	}
+	if (parsed.pre_pad && (put_n_times(' ', parsed.pre_pad) == -1))
+		return (-1);
+	if (ft_putchar('%') == -1)
+		return (-1);
+	if (parsed.post_pad && (put_n_times(' ', parsed.post_pad) == -1))
+		return (-1);
+	return (ft_max(parsed.size, format->min_width));
 }

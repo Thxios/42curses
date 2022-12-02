@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 15:01:08 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/24 15:21:57 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:25:03 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_len_num(long long n, int n_base)
 	return (len_num);
 }
 
-void	ft_putnbr(long long n)
+int	ft_putnbr(long long n)
 {
 	long long	decimal;
 	int			digit;
@@ -35,7 +35,8 @@ void	ft_putnbr(long long n)
 
 	if (n < 0)
 	{
-		write(STDOUT_FILENO, "-", 1);
+		if (write(STDOUT_FILENO, "-", 1) == -1)
+			return (-1);
 		n = -n;
 	}
 	decimal = 1;
@@ -45,13 +46,15 @@ void	ft_putnbr(long long n)
 	{
 		digit = n / decimal;
 		to_put = digit + '0';
-		write(STDOUT_FILENO, &to_put, 1);
+		if (write(STDOUT_FILENO, &to_put, 1) == -1)
+			return (-1);
 		n -= digit * decimal;
 		decimal = decimal / 10;
 	}
+	return (0);
 }
 
-void	ft_putnbr_base(long long num, char *base)
+int	ft_putnbr_base(long long num, char *base)
 {
 	int			n_base;
 	int			digit;
@@ -59,7 +62,8 @@ void	ft_putnbr_base(long long num, char *base)
 
 	if (num < 0)
 	{
-		write(STDOUT_FILENO, "-", 1);
+		if (write(STDOUT_FILENO, "-", 1) == -1)
+			return (-1);
 		num = -num;
 	}
 	n_base = ft_strlen(base);
@@ -69,10 +73,12 @@ void	ft_putnbr_base(long long num, char *base)
 	while (to_div >= 1)
 	{
 		digit = num / to_div;
-		write(STDOUT_FILENO, &base[digit], 1);
+		if (write(STDOUT_FILENO, &base[digit], 1) == -1)
+			return (-1);
 		num -= digit * to_div;
 		to_div = to_div / n_base;
 	}
+	return (0);
 }
 
 int	get_len_num_u(unsigned long long n, int n_base)
@@ -90,7 +96,7 @@ int	get_len_num_u(unsigned long long n, int n_base)
 	return (len_num);
 }
 
-void	ft_putnbr_base_u(unsigned long long num, char *base)
+int	ft_putnbr_base_u(unsigned long long num, char *base)
 {
 	int					n_base;
 	int					digit;
@@ -103,8 +109,10 @@ void	ft_putnbr_base_u(unsigned long long num, char *base)
 	while (to_div >= 1)
 	{
 		digit = num / to_div;
-		write(STDOUT_FILENO, &base[digit], 1);
+		if (write(STDOUT_FILENO, &base[digit], 1) == -1)
+			return (-1);
 		num -= digit * to_div;
 		to_div = to_div / n_base;
 	}
+	return (0);
 }

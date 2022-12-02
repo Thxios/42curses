@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_hex_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:38:14 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/29 17:54:07 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:33:54 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,19 @@ int	parse_prec_pad_hex(t_format *format, long long num, t_fhex *parsed)
 	return (ft_max(num_len, format->min_width));
 }
 
-void	print_hex_format(long long num, t_fhex *format, char *base)
+int	print_hex_format(long long num, t_fhex *format, char *base)
 {
-	if (format->pre_pad)
-		put_n_times(' ', format->pre_pad);
-	if (format->prefix)
-		ft_putstr_fd(format->prefix, STDOUT_FILENO);
-	if (format->mid_zero)
-		put_n_times('0', format->mid_zero);
-	if (num >= 0)
-		ft_putnbr_base(num, base);
-	if (format->post_pad)
-		put_n_times(' ', format->post_pad);
+	if (format->pre_pad && (put_n_times(' ', format->pre_pad) == -1))
+		return (-1);
+	if (format->prefix && (ft_putstr(format->prefix) == -1))
+		return (-1);
+	if (format->mid_zero && (put_n_times('0', format->mid_zero) == -1))
+		return (-1);
+	if (num >= 0 && (ft_putnbr_base(num, base) == -1))
+		return (-1);
+	if (format->post_pad && (put_n_times(' ', format->post_pad) == -1))
+		return (-1);
+	return (0);
 }
 
 int	print_hex_lower(t_format *format, va_list ap)
@@ -61,13 +62,14 @@ int	print_hex_lower(t_format *format, va_list ap)
 	t_fhex		parsed;
 
 	val = va_arg(ap, unsigned int);
-	ft_memset(&parsed, 0, sizeof(t_fhex));
+	ft_memset(&parsed, 0, sizeof(parsed));
 	if ((format->flag & PRECISION) && (format->precision == 0) && (val == 0))
 		val = -1;
 	if ((format->flag & SHARP) && (val > 0))
 		parsed.prefix = "0x";
 	put_size = parse_prec_pad_hex(format, val, &parsed);
-	print_hex_format(val, &parsed, "0123456789abcdef");
+	if (print_hex_format(val, &parsed, "0123456789abcdef") == -1)
+		return (-1);
 	return (put_size);
 }
 
@@ -78,12 +80,13 @@ int	print_hex_upper(t_format *format, va_list ap)
 	t_fhex		parsed;
 
 	val = va_arg(ap, unsigned int);
-	ft_memset(&parsed, 0, sizeof(t_fhex));
+	ft_memset(&parsed, 0, sizeof(parsed));
 	if ((format->flag & PRECISION) && (format->precision == 0) && (val == 0))
 		val = -1;
 	if ((format->flag & SHARP) && (val > 0))
 		parsed.prefix = "0X";
 	put_size = parse_prec_pad_hex(format, val, &parsed);
-	print_hex_format(val, &parsed, "0123456789ABCDEF");
+	if (print_hex_format(val, &parsed, "0123456789ABCDEF") == -1)
+		return (-1);
 	return (put_size);
 }
