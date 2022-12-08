@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:58:09 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/12 18:08:43 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/08 20:08:28 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
-static int	is_in_set(char c, char const *set)
-{
-	int	idx;
-
-	idx = 0;
-	while (set[idx] != '\0')
-	{
-		if (c == set[idx])
-			return (1);
-		idx++;
-	}
-	return (0);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	len_s1;
@@ -73,9 +59,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	len_s1 = ft_strlen(s1);
 	idx_pre = 0;
 	idx_suf = len_s1;
-	while ((s1[idx_pre] != '\0') && is_in_set(s1[idx_pre], set))
+	while ((s1[idx_pre] != '\0') && ft_strchr(set, s1[idx_pre]))
 		idx_pre++;
-	while ((idx_suf > idx_pre) && is_in_set(s1[idx_suf - 1], set))
+	while ((idx_suf > idx_pre) && ft_strchr(set, s1[idx_suf - 1]))
 		idx_suf--;
 	len_trimmed = idx_suf - idx_pre;
 	trimmed = (char *)malloc(sizeof(char) * (len_trimmed + 1));
