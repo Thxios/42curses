@@ -141,4 +141,8 @@ int main()
 	printf("\n%%.10s:\n");
 	ret = printf("|%.10s|\n", "1234");
 	printf("ret %d\n", ret);
+
+	printf("\n%%10%%s:\n");
+	ret = printf("|%10%|\n");
+	printf("ret %d\n", ret);
 }

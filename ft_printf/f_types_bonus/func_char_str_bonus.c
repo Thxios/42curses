@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_char_str_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:52:43 by jimlee            #+#    #+#             */
-/*   Updated: 2022/12/01 13:44:50 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:29:48 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,28 @@ int	ft_putchar_n(const char *buffer, int n)
 	idx = 0;
 	while (idx < n)
 	{
-		ft_putchar_fd(buffer[idx], STDOUT_FILENO);
+		if (ft_putchar(buffer[idx]) == -1)
+			return (-1);
 		idx++;
 	}
 	return (idx);
 }
 
-void	print_str_format(char *buffer, t_fstr *format)
+int	print_str_format(char *buffer, t_fstr *format)
 {
 	if (format->pre_pad)
-		put_n_times(' ', format->pre_pad);
-	ft_putchar_n(buffer, format->size);
+	{
+		if (put_n_times(' ', format->pre_pad) == -1)
+			return (-1);
+	}
+	if (ft_putchar_n(buffer, format->size) == -1)
+		return (-1);
 	if (format->post_pad)
-		put_n_times(' ', format->post_pad);
+	{
+		if (put_n_times(' ', format->post_pad) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 int	print_char(t_format *format, va_list ap)
@@ -49,7 +58,8 @@ int	print_char(t_format *format, va_list ap)
 		else
 			parsed.pre_pad = format->min_width - 1;
 	}
-	print_str_format(&val, &parsed);
+	if (print_str_format(&val, &parsed) == -1)
+		return (-1);
 	return (ft_max(1, format->min_width));
 }
 
@@ -61,12 +71,7 @@ int	print_str(t_format *format, va_list ap)
 	val = va_arg(ap, char *);
 	ft_memset(&parsed, 0, sizeof(parsed));
 	if (!val)
-	{
-		if ((format->flag & PRECISION) && (format->precision < 6))
-			val = "";
-		else
-			val = "(null)";
-	}
+		val = "(null)";
 	parsed.size = ft_strlen(val);
 	if ((format->flag & PRECISION) && (parsed.size > format->precision))
 		parsed.size = format->precision;
@@ -77,6 +82,7 @@ int	print_str(t_format *format, va_list ap)
 		else
 			parsed.pre_pad = format->min_width - parsed.size;
 	}
-	print_str_format(val, &parsed);
+	if (print_str_format(val, &parsed) == -1)
+		return (-1);
 	return (ft_max(parsed.size, format->min_width));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pad_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:00:52 by jimlee            #+#    #+#             */
-/*   Updated: 2022/12/01 12:46:35 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:45:42 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	put_n_times(char c, int n)
 	times = 0;
 	while (times < n)
 	{
-		write(STDOUT_FILENO, &c, 1);
+		if (ft_putchar(c) == -1)
+			return (-1);
 		times++;
 	}
 	return (n);

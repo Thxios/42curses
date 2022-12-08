@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_char_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:52:43 by jimlee            #+#    #+#             */
-/*   Updated: 2022/11/30 10:59:17 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:26:03 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	print_char(t_format *format, va_list ap)
 
 	(void)format;
 	val = va_arg(ap, int);
-	ft_putchar_fd(val, STDOUT_FILENO);
+	if (ft_putchar(val) == -1)
+		return (-1);
 	return (1);
 }
 
@@ -32,6 +33,7 @@ int	print_str(t_format *format, va_list ap)
 	if (!val)
 		val = "(null)";
 	len = ft_strlen(val);
-	ft_putstr_fd(val, STDOUT_FILENO);
+	if (ft_putstr(val) == -1)
+		return (-1);
 	return (len);
 }

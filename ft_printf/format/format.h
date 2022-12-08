@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 15:14:16 by jimlee            #+#    #+#             */
-/*   Updated: 2022/12/01 13:04:52 by jimlee           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:42:06 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ typedef enum e_ftype
 
 typedef enum e_flag
 {
-	LEFT_ALIGN = 1,
-	SHOW_POS_SIGN = 2,
-	SHOW_POS_BLANK = 4,
-	PAD_ZERO = 8,
-	SHARP = 16,
-	PRECISION = 32
+	LEFT_ALIGN = 1 << 0,
+	SHOW_POS_SIGN = 1 << 1,
+	SHOW_POS_BLANK = 1 << 2,
+	PAD_ZERO = 1 << 3,
+	SHARP = 1 << 4,
+	PRECISION = 1 << 5
 }	t_flag;
 
 typedef struct s_format
