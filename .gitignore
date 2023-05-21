@@ -3,4 +3,9 @@
 
 *.o
 *.a
+*.out
+*.lib
+*.in
+*.dll
+*mlx*/*
 
