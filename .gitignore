@@ -7,5 +7,5 @@
 *.lib
 *.in
 *.dll
-*mlx*/*
+**/*mlx*
 
