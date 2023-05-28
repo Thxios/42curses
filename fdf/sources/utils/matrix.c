@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:14:41 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/21 17:42:50 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/05/25 01:22:26 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,29 @@ void	matmul_inplace(t_mat4 a, t_mat4 b)
 	copy_matrix(a, tmp);
 }
 
-void	apply_to_vec(t_mat4 m, t_vec v, t_vec *out)
+void	proj_vec_to_vec4(t_mat4 m, t_vec v, t_vec4 out)
 {
-	out->x = v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + m[0][3];
-	out->y = v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2] + m[1][3];
-	out->z = v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + m[2][3];
+	out[0] = v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + m[0][3];
+	out[1] = v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2] + m[1][3];
+	out[2] = v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + m[2][3];
+	out[3] = v.x * m[3][0] + v.y * m[3][1] + v.z * m[3][2] + m[3][3];
 }
+
+#include <stdio.h>
+void print_matrix(t_mat4 mat) {
+	for (int i = 0; i < 4; i++) {
+		printf((i == 0) ? "[" : " ");
+		for (int j = 0; j < 4; j++) {
+			printf("% .2f", mat[i][j]);
+			printf(" ");
+		}
+		if (i == 3)
+			printf("]");
+		printf("\n");
+	}
+}
+void	print_vec4(t_vec4 v)
+{
+	printf("(%.2f, %.2f, %.2f, %.2f)", v[0], v[1], v[2], v[3]);
+}
+

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:48:12 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/17 15:58:09 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/05/25 01:55:34 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ typedef enum e_keycode
 	KEY_S = 115,
 	KEY_D = 100,
 	KEY_UP = 65362,
-	KEY_DOWN = 65361,
-	KEY_LEFT = 65364,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
 	KEY_RIGHT = 65363,
+	KEY_SPACE = 32,
+	KEY_LSHIFT = 65505,
 	KEY_TAB = 65289,
 	KEY_ESCAPE = 65307,
 }	t_keycode;
@@ -41,6 +43,8 @@ typedef struct s_keys
 	char	k_down;
 	char	k_left;
 	char	k_right;
+	char	k_space;
+	char	k_lshift;
 }			t_keys;
 
 #endif

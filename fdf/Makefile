@@ -37,7 +37,14 @@ RENDER_SRCS =	\
 				draw.c \
 				draw_line.c \
 				draw_line_grad.c \
+				draw_obj.c \
 				color.c
+
+CAMERA_DIR =	camera
+CAMERA_SRCS =	\
+				camera.c \
+				ortho.c \
+				persp.c
 
 EVENTS_DIR =	events
 EVENTS_SRCS =	\
@@ -48,20 +55,31 @@ UPDATE_DIR =	update
 UPDATE_SRCS =	\
 				frame.c
 
+OBJECT_DIR =	object
+OBJECT_SRCS =	\
+				object.c
+
 UTIL_DIR =	utils
 UTIL_SRCS =	\
 			utils.c \
+			matrix.c \
+			point.c \
+			vector.c \
 			error.c
 
 SRCS_BASE = \
 			$(addprefix $(CTX_DIR)/, $(CTX_SRCS)) \
 			$(addprefix $(RENDER_DIR)/, $(RENDER_SRCS)) \
+			$(addprefix $(CAMERA_DIR)/, $(CAMERA_SRCS)) \
 			$(addprefix $(EVENTS_DIR)/, $(EVENTS_SRCS)) \
 			$(addprefix $(UPDATE_DIR)/, $(UPDATE_SRCS)) \
+			$(addprefix $(OBJECT_DIR)/, $(OBJECT_SRCS)) \
 			$(addprefix $(UTIL_DIR)/, $(UTIL_SRCS))
 
 SRCS =		$(addprefix $(SRCS_DIR)/, $(SRCS_BASE))
 OBJS =		$(SRCS:.c=.o)
+
+OBJS_TEST =	$(addprefix build/, $(notdir $(SRCS:.c=.o)))
 
 MAIN_SRC =	test.c
 MAIN_OBJ =	$(SRCS_DIR)/$(MAIN_SRC:.c=.o)
@@ -69,6 +87,9 @@ MAIN_OBJ =	$(SRCS_DIR)/$(MAIN_SRC:.c=.o)
 
 
 all: $(NAME)
+
+echo:
+	@echo $(OBJS_TEST)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INC_FLAGS) -c $^ -o $@
@@ -86,7 +107,7 @@ clean:
 	rm -f $(OBJS) $(MAIN_OBJ)
 
 fclean: clean
-	rm -f $(PUSH_SWAP) $(CHECKER)
+	rm -f $(NAME)
 
 re:	fclean all
 

@@ -13,9 +13,9 @@ WIDTH, HEIGHT = 800, 600
 
 SCALE = 100
 
-LEFT, RIGHT = -10, 10
+LEFT, RIGHT = -20, 20
 # BOTTOM, TOP = 0, 6
-BOTTOM, TOP = -7.5, 7.5
+BOTTOM, TOP = -15, 15
 # LEFT, RIGHT = 0, 1
 # TOP, BOTTOM = 0, 1
 # BOTTOM, TOP = 0, WIDTH/SCALE
@@ -74,7 +74,8 @@ proj3 = np.array([
 # print(p3)
 # proj_mat = np.dot(rescale, translate)
 proj_mat = proj3
-# print(proj_mat)
+print(proj_mat)
+# quit()
 # proj_mat = proj2
 # print(proj2)
 # print(np.dot(proj_mat, p))
