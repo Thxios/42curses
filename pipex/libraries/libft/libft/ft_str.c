@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:54:48 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/02 11:18:05 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/05/08 15:13:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,25 @@ size_t	ft_strlen(const char *s)
 	while (s[length] != '\0')
 		length++;
 	return (length);
+}
+
+char	*ft_strncpy(char *dest, const char *src, size_t n)
+{
+	size_t	idx;
+	int		src_is_ended;
+
+	idx = 0;
+	src_is_ended = 0;
+	while (idx < n)
+	{
+		src_is_ended = src_is_ended || (src[idx] == '\0');
+		if (src_is_ended)
+			dest[idx] = '\0';
+		else
+			dest[idx] = src[idx];
+		idx++;
+	}
+	return (dest);
 }
 
 char	*ft_strdup(const char *src)

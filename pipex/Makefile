@@ -1,7 +1,6 @@
 
 CC =		gcc
-CFLAGS =	-Wall -Wextra -fsanitize=address
-# CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror
 
 NAME =	pipex
 
@@ -71,7 +70,7 @@ clean:
 	rm -f $(OBJS) $(MAIN_OBJ)
 
 fclean: clean
-	rm -f $(PIPEX_OBJ)
+	rm -f $(NAME)
 
 re:	fclean all
 
