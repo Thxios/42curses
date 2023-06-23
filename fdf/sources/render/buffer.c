@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:22:42 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/15 01:28:37 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/05/25 00:05:05 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "utils/utils.h"
 #include "render/buffer.h"
 #include "context/context.h"
+#include "libft.h"
 
 #include <stdio.h>
 

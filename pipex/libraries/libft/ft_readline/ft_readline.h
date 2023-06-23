@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ortho_trans.h                                      :+:      :+:    :+:   */
+/*   ft_readline.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 14:49:34 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/21 17:44:25 by jimlee           ###   ########.fr       */
+/*   Created: 2022/11/16 17:03:56 by jimlee            #+#    #+#             */
+/*   Updated: 2023/05/01 14:54:08 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ORTHO_TRANS_H
-# define ORTHO_TRANS_H
+#ifndef FT_READLINE_H
+# define FT_READLINE_H
 
-# include "utils/vector.h"
-# include "utils/matrix.h"
+# define INIT_BUFFER_SIZE 16
 
-typedef struct s_ortho
-{
-	double	left;
-	double	right;
-	double	top;
-	double	bottom;
-	double	near;
-	double	far;
-	t_mat4	projection;
-}			t_ortho;
+# include <unistd.h>
+# include "libft.h"
 
-
-t_vec	ortho_world2scr(t_vec);
+char	*ft_readline(int fd);
 
 #endif

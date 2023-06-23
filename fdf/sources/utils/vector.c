@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:55:11 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/17 15:29:36 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/05/25 01:19:32 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,10 @@ void	normalize_vec(t_vec *v)
 		v->y /= mag;
 		v->z /= mag;
 	}
+}
+
+#include <stdio.h>
+void	print_vec(t_vec v)
+{
+	printf("(%.2f, %.2f, %.2f)", v.x, v.y, v.z);
 }
