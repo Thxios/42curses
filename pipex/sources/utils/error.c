@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 00:55:20 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/29 01:18:35 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:16:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,31 @@ void	fatal_error(const char *message)
 	ft_putstr_fd(": ", STDERR_FILENO);
 	perror(message);
 	exit(1);
+}
+
+void	command_find_error(const char *message)
+{
+	ft_putstr_fd(info()->exe, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	perror(message);
+	exit(127);
+}
+
+void	command_permission_error(const char *message)
+{
+	ft_putstr_fd(info()->exe, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	perror(message);
+	exit(126);
+}
+
+void	command_not_found_error(const char *command)
+{
+	ft_putstr_fd(info()->exe, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd((char *)command, STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	exit(127);
 }
 
 void	parse_eof_error(void)

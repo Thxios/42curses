@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 00:44:47 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 21:26:10 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:13:07 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ t_io	*prepare_pipe_io(int n_cmds, int is_heredoc, int argc, char *argv[])
 	io_arr[n_cmds - 1].out_file = argv[argc - 1];
 	if (is_heredoc)
 	{
-		io_arr[0].in_file = argv[2];
-		io_arr[0].in_flag |= IN_HERE_DOC;
+		io_arr[0].in_fd = open_here_doc(argv[2]);
 		io_arr[n_cmds - 1].out_flag |= OUT_APPEND;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:22:57 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 21:10:57 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:13:35 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@
 #include "pipe/io.h"
 #include "utils/error.h"
 
-int	open_in_file(char *file, int flag)
+int	open_in_file(char *file)
 {
 	int	fd;
 
-	if (flag & IN_HERE_DOC)
-		fd = open_here_doc(file);
-	else
-	{
-		fd = open(file, O_RDONLY);
-		if (fd == -1)
-			fatal_error(file);
-	}
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		fatal_error(file);
 	return (fd);
 }
 
@@ -51,12 +46,7 @@ void	execute_single_pipe(char *cmd_str, t_io *io)
 	t_cmd	*cmd;
 
 	if (io->in_file)
-	{
-		if (io->in_flag & IN_HERE_DOC)
-			io->in_fd = open_here_doc(io->in_file);
-		else
-			io->in_fd = open_in_file(io->in_file, io->in_flag);
-	}
+		io->in_fd = open_in_file(io->in_file);
 	if (io->out_file)
 		io->out_fd = open_out_file(io->out_file, io->out_flag);
 	if ((dup2(io->in_fd, STDIN_FILENO) == -1)

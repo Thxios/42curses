@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:24:32 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/11 13:39:23 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/26 01:13:41 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef struct s_io
 	int		out_fd;
 	char	*in_file;
 	char	*out_file;
-	int		in_flag;
 	int		out_flag;
 }	t_io;
 
