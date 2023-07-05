@@ -6,13 +6,15 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:38:21 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 18:23:20 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 19:46:05 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "utils/utils.h"
 #include "utils/error.h"
+
+#include <stdio.h>
 
 int	ft_abs(int num)
 {
@@ -105,6 +107,7 @@ int	*map_atoi_to_splited(char *s, int *size)
 	arr = safe_calloc(cnt, sizeof(int));
 	while (cnt--)
 	{
+		printf("%02d: \"%s\", atoi: %d\n", cnt, ret[cnt], ft_atoi(ret[cnt]));
 		arr[cnt] = ft_atoi(ret[cnt]);
 		free(ret[cnt]);
 	}

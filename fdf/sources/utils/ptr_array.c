@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:43:56 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 18:02:29 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 19:10:22 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_ptr_arr	*new_ptr_array(void)
 	return (ret);
 }
 
-void	push_chr_array(t_ptr_arr *arr, void *value)
+void	push_ptr_array(t_ptr_arr *arr, void *value)
 {
 	void	**new_arr;
 
@@ -41,13 +41,13 @@ void	push_chr_array(t_ptr_arr *arr, void *value)
 	arr->size++;
 }
 
-void	pop_chr_array(t_ptr_arr *arr)
+void	pop_ptr_array(t_ptr_arr *arr)
 {
 	if (arr->size)
 		arr->size--;
 }
 
-void	delete_chr_array(t_ptr_arr *arr)
+void	delete_ptr_array(t_ptr_arr *arr)
 {
 	free(arr->arr);
 	free(arr);

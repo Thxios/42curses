@@ -59,7 +59,8 @@ UPDATE_SRCS =	\
 
 OBJECT_DIR =	object
 OBJECT_SRCS =	\
-				object.c
+				object.c \
+				read_file.c
 
 UTIL_DIR =	utils
 UTIL_SRCS =	\
@@ -68,6 +69,7 @@ UTIL_SRCS =	\
 			point.c \
 			quaternion.c \
 			vector.c \
+			ptr_array.c \
 			error.c
 
 SRCS_BASE = \

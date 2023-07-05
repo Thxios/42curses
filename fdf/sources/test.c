@@ -1,6 +1,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "mlx.h"
 #include "context/context.h"
 #include "render/buffer.h"
@@ -9,6 +11,7 @@
 #include "utils/utils.h"
 #include "update/frame.h"
 #include "object/object.h"
+#include "object/read_file.h"
 #include "utils/matrix.h"
 #include "config.h"
 
@@ -87,7 +90,7 @@ t_obj3d *new_obj_test(void)
 	return obj;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 	init_context();
 	launch_window(WIDTH, HEIGHT, "test");
 	// mlx_key_hook(window(), keydown_event, &keys);
@@ -101,7 +104,20 @@ int main() {
 
 	// img = new_image(1280, 960);
 	upd_var.img = new_image(WIDTH, HEIGHT);
-	upd_var.obj = new_obj_test();
+	if (argc == 2)
+	{
+		printf("read from %s\n", argv[1]);
+		int fd = open(argv[1], O_RDONLY);
+		upd_var.obj = new_from_file(fd);
+		close(fd);
+		translate(&upd_var.obj, (t_vec){0, 0, 26});
+	}
+	else
+	{
+
+		upd_var.obj = new_obj_test();
+	}
+	// translate(upd_var.obj, (t_vec){0, 0, 26});
 	// set_pixel(img, 100, 100, rgb2color(255, 0, 0));
 
 	// draw_line_grad(img, (t_pos){100, 100}, (t_pos){300, 200}, make_grad(0xff0000, 0xff));

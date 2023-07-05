@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:29 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 19:01:56 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 19:48:55 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "utils/utils.h"
 #include "libft.h"
 #include "config.h"
+
+#include <stdio.h>
 
 void	delete_map_info(t_map_info *map)
 {
@@ -46,8 +48,10 @@ t_map_info	*parse_file(int fd)
 		line = ft_readline(fd);
 		if (!line)
 			break;
+		printf("read line %p, \"%s\": len %d\n", line, line, (int)ft_strlen(line));
 		push_ptr_array(arr, line);
 	}
+	printf("readline done\n");
 	if (arr->size == 0)
 	{
 		delete_ptr_array(arr);
@@ -65,13 +69,14 @@ t_map_info	*parse_file(int fd)
 	}
 	idx = 1;
 	while (idx < arr->size) {
-		map->height[idx] = map_atoi_to_splited(arr->arr[1], &n_col);
+		map->height[idx] = map_atoi_to_splited(arr->arr[idx], &n_col);
 		if (n_col != map->n_col)
 		{
 			delete_ptr_array(arr);
 			delete_map_info(map);
 			return (NULL);
 		}
+		idx++;
 	}
 	delete_ptr_array(arr);
 	return (map);
@@ -148,14 +153,28 @@ t_obj3d	*new_from_file(int fd)
 	t_obj3d		*obj;
 
 	info = parse_file(fd);
+	printf("parse file done\n");
 	if (!info)
 		return (NULL);
+	printf("info(nr=%d, nc=%d)\n", info->n_row, info->n_col);
+	for (int r = 0; r < info->n_row; r++) {
+		for (int c = 0; c < info->n_col; c++) {
+			printf("%d ", info->height[r][c]);
+		}
+		printf("\n");
+	}
 	obj = new_object3d((t_vec){0, 0, 0});
 	obj->n_vertices = info->n_row * info->n_row;
 	obj->n_edges = (info->n_row - 1) * info->n_col 
 		+ (info->n_col - 1) * info->n_row;
 	obj->v = safe_calloc(obj->n_vertices, sizeof(t_vertex));
 	obj->e = safe_calloc(obj->n_edges, sizeof(t_edge));
+	printf("obj alloc done\n");
 	init_obj_vertices(obj, info);
+	printf("vert init done\n");
 	init_obj_edges(obj, info);
+	printf("edge init done\n");
+	delete_map_info(info);
+	printf("delete map done\n");
+	return (obj);
 }
