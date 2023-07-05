@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:39:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/15 12:36:52 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/27 20:09:47 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <stdlib.h>
 
 int		clip(int val, int min, int max);
+double	clipf(double val, double min, double max);
 void	swap(int *a, int *b);
 int		ft_abs(int num);
+char	**split_and_size(char *s, int *size);
 
 void	*safe_malloc(size_t n_bytes);
 void	*safe_calloc(size_t n_elem, size_t elem_size);

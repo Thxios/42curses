@@ -94,6 +94,7 @@ int main() {
 	mlx_hook(window(), 17, 0, quit_event, NULL);
 	mlx_hook(window(), 2, 1 << 0, keydown_event, &upd_var.key);
 	mlx_hook(window(), 3, 1 << 1, keyup_event, &upd_var.key);
+	mlx_hook(window(), 4, 1 << 2, mousedown_event, NULL);
 
 	printf("camera proj mat:\n");
 	print_matrix(camera()->proj_mat);

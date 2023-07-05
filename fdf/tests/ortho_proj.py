@@ -233,12 +233,12 @@ class Obj:
     def rotate(self, axis, angle):
         q = get_qt(angle, axis)
         rot = get_rot_mat(*q)
-        # self.rot = np.dot(self.rot, rot)
-        self.vts = np.dot(self.vts, rot)
+        self.rot = np.dot(self.rot, rot)
+        # self.vts = np.dot(self.vts, rot)
 
     def get_vts(self):
-        return self.center + self.vts
-        # return self.center + np.dot(self.vts, self.rot)
+        # return self.center + self.vts
+        return self.center + np.dot(self.vts, self.rot)
 
     def get_edges(self):
         for s, e in self.edges:

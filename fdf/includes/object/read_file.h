@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ortho.h                                            :+:      :+:    :+:   */
+/*   read_file.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 14:49:34 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:42:06 by jimlee           ###   ########.fr       */
+/*   Created: 2023/06/27 19:53:37 by jimlee            #+#    #+#             */
+/*   Updated: 2023/06/27 20:04:01 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ORTHO_H
-# define ORTHO_H
+#ifndef READ_FILE_H
+# define READ_FILE_H
 
-# include "utils/matrix.h"
+# include "object/object.h"
 
-typedef struct s_ortho
+typedef struct s_map_info
 {
-	double	left;
-	double	right;
-	double	top;
-	double	bottom;
-	double	near;
-	double	far;
-	double	mag;
-}			t_ortho;
+	int	n_row;
+	int	n_col;
+	int	**height;
+}		t_map_info;
 
-t_ortho	*get_ortho_config(void);
-void	get_ortho_proj_matrix(t_ortho *cfg, t_mat4 out);
+t_obj3d	*new_from_file(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:38:21 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/15 12:34:43 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/27 20:09:38 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ int	clip(int val, int min, int max)
 	return (val);
 }
 
+double	clipf(double val, double min, double max)
+{
+	if (val < min)
+		return (min);
+	if (val > max)
+		return (max);
+	return (val);
+}
+
 void	*safe_malloc(size_t size)
 {
 	void	*ret;
@@ -58,5 +67,18 @@ void	*safe_calloc(size_t n_elem, size_t elem_size)
 	if (!ret)
 		fatal_error("malloc fail");
 	ft_memset(ret, 0, n_elem * elem_size);
+	return (ret);
+}
+
+char	**split_and_size(char *s, int *size)
+{
+	char	**ret;
+	int		cnt;
+
+	ret = ft_split(s, ' ');
+	cnt = 0;
+	while (ret[cnt])
+		cnt++;
+	*size = cnt;
 	return (ret);
 }

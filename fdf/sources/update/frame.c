@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:34:18 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/28 13:07:37 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/23 15:04:04 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-void	handle_transform(t_keys *key, t_obj3d *obj)
+void	translate_object(t_keys *key, t_obj3d *obj)
 {
 	static const double	speed = 0.25;
 	t_vec	delta;
@@ -39,6 +39,38 @@ void	handle_transform(t_keys *key, t_obj3d *obj)
 	if (key->k_lshift)
 		delta.z -= speed;
 	translate(obj, delta);
+}
+
+void	rotate_object(t_keys *key, t_obj3d *obj)
+{
+	static const double	rot_speed = 0.05;
+	double	angle;
+
+	angle = 0;
+	if (key->k_w)
+		angle += rot_speed;
+	if (key->k_s)
+		angle -= rot_speed;
+	rotate(obj, (t_vec){1, 0, 0}, angle);
+	angle = 0;
+	if (key->k_a)
+		angle += rot_speed;
+	if (key->k_d)
+		angle -= rot_speed;
+	rotate(obj, (t_vec){0, 1, 0}, angle);
+	angle = 0;
+	if (key->k_q)
+		angle += rot_speed;
+	if (key->k_e)
+		angle -= rot_speed;
+	rotate(obj, (t_vec){0, 0, 1}, angle);
+}
+
+void	handle_transform(t_keys *key, t_obj3d *obj)
+{
+	translate_object(key, obj);
+	rotate_object(key, obj);
+	// if (key->)
 }
 
 int	update_frame(t_upd *var)

@@ -43,13 +43,15 @@ RENDER_SRCS =	\
 CAMERA_DIR =	camera
 CAMERA_SRCS =	\
 				camera.c \
+				zoom.c \
 				ortho.c \
 				persp.c
 
 EVENTS_DIR =	events
 EVENTS_SRCS =	\
 				quit.c \
-				keydown.c
+				keydown.c \
+				mousedown.c
 
 UPDATE_DIR =	update
 UPDATE_SRCS =	\
@@ -64,6 +66,7 @@ UTIL_SRCS =	\
 			utils.c \
 			matrix.c \
 			point.c \
+			quaternion.c \
 			vector.c \
 			error.c
 

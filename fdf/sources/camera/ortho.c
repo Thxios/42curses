@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:51:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/30 14:38:46 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/23 14:37:38 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_ortho_proj_matrix(t_ortho *cfg, t_mat4 out)
 {
 	double	mag_ratio;
 
-	mag_ratio = pow(4, cfg->mag)
+	mag_ratio = pow(4, cfg->mag);
 	out[0][0] = 2. / (mag_ratio * (cfg->right - cfg->left));
 	out[0][1] = 0;
 	out[0][2] = 0;

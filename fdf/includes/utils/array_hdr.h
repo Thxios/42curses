@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ortho.h                                            :+:      :+:    :+:   */
+/*   array_hdr.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 14:49:34 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:42:06 by jimlee           ###   ########.fr       */
+/*   Created: 2023/03/04 22:42:06 by jimlee            #+#    #+#             */
+/*   Updated: 2023/06/27 19:59:17 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ORTHO_H
-# define ORTHO_H
+#ifndef ARRAY_HDR_H
+# define ARRAY_HDR_H
 
-# include "utils/matrix.h"
+# include <stdlib.h>
 
-typedef struct s_ortho
-{
-	double	left;
-	double	right;
-	double	top;
-	double	bottom;
-	double	near;
-	double	far;
-	double	mag;
-}			t_ortho;
-
-t_ortho	*get_ortho_config(void);
-void	get_ortho_proj_matrix(t_ortho *cfg, t_mat4 out);
+# define INITIAL_CAPA 16
 
 #endif

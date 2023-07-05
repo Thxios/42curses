@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:42:31 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/25 01:50:08 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/23 14:51:49 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ t_camera	*camera()
 void	change_camera_type(void)
 {
 	if (camera()->type == PERSPECTIVE)
+	{
+		get_ortho_config()->mag = get_persp_config()->mag;
 		set_proj_orthographic();
+	}
 	else if (camera()->type == ORTHOGRAPHIC)
+	{
+		get_persp_config()->mag = get_ortho_config()->mag;
 		set_proj_perspective();
+	}
 }
 
 void	set_proj_orthographic(void)

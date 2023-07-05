@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ortho.h                                            :+:      :+:    :+:   */
+/*   mousedown.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 14:49:34 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:42:06 by jimlee           ###   ########.fr       */
+/*   Created: 2023/06/23 14:34:08 by jimlee            #+#    #+#             */
+/*   Updated: 2023/06/23 14:49:08 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ORTHO_H
-# define ORTHO_H
+#include "events/events.h"
+#include "camera/camera.h"
 
-# include "utils/matrix.h"
+#include <stdio.h>
 
-typedef struct s_ortho
+int	mousedown_event(int button, int x, int y, void *arg)
 {
-	double	left;
-	double	right;
-	double	top;
-	double	bottom;
-	double	near;
-	double	far;
-	double	mag;
-}			t_ortho;
-
-t_ortho	*get_ortho_config(void);
-void	get_ortho_proj_matrix(t_ortho *cfg, t_mat4 out);
-
-#endif
+	(void)arg;
+	printf("button %d - (%d, %d)\n", button, x, y);
+	if (button == BTN_WHEELUP)
+	{
+		camera_zoom(-1);
+	}
+	else if (button == BTN_WHEELDOWN)
+	{
+		camera_zoom(1);
+	}
+}

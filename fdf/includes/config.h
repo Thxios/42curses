@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:25:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/25 01:42:28 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/06/23 14:48:23 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 
 # define CAMERA_FOV 60.
 
-# define CAMERA_LEFT -40.
-# define CAMERA_RIGHT 40.
-# define CAMERA_TOP 30.
-# define CAMERA_BOTTOM -30.
+# define CAMERA_LEFT -20.
+# define CAMERA_RIGHT 20.
+# define CAMERA_TOP 15.
+# define CAMERA_BOTTOM -15.
 
 # define CAMERA_NEAR 0.1
 # define CAMERA_FAR 1000.
