@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   persp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:51:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:48:03 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 17:17:24 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,17 @@
 t_persp	*get_persp_config(void)
 {
 	static t_persp	config = (t_persp){
-		CAMERA_FOV, 1 / tan(CAMERA_FOV / 360. * PI), (double)HEIGHT / WIDTH,
+		1, (double)HEIGHT / WIDTH,
 		CAMERA_NEAR, CAMERA_FAR,
 		0
 	};
 
 	return (&config);
+}
+
+void	init_persp_config(t_persp *conf)
+{
+	conf->f = 1 / tan(CAMERA_FOV / 360. * PI);
 }
 
 void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out)

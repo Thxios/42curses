@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:38:21 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/27 20:09:38 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 17:46:07 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,25 @@ char	**split_and_size(char *s, int *size)
 	*size = cnt;
 	return (ret);
 }
+
+int	*map_atoi_to_splited(char *s, int *size)
+{
+	char	**ret;
+	int		*arr;
+	int		cnt;
+
+	ret = ft_split(s, ' ');
+	cnt = 0;
+	while (ret[cnt])
+		cnt++;
+	*size = cnt;
+	arr = safe_calloc(cnt, sizeof(int));
+	while (cnt--)
+	{
+		arr[cnt] = ft_atoi(ret[cnt]);
+		free(ret[cnt]);
+	}
+	free(ret);
+	return (arr);
+}
+

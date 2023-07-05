@@ -50,7 +50,7 @@ t_vertex make_vertex(double x, double y, double z){
 
 t_obj3d *new_obj_test(void)
 {
-	t_obj3d	*obj = new_object3d((t_vec){0, 0, 10});
+	t_obj3d	*obj = new_object3d((t_vec){0, 0, 26});
 
 	double SIZE = 2;
 	obj->n_vertices = 6;

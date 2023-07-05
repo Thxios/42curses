@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:42:31 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:51:49 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 17:18:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	init_camera()
 	t_camera	*cam;
 
 	cam = camera();
+	init_persp_config(get_persp_config());
 	set_proj_orthographic();
 }

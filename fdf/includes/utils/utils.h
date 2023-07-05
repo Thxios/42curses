@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:39:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/27 20:09:47 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 17:46:23 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ double	clipf(double val, double min, double max);
 void	swap(int *a, int *b);
 int		ft_abs(int num);
 char	**split_and_size(char *s, int *size);
+int		*map_atoi_to_splited(char *s, int *size);
 
 void	*safe_malloc(size_t n_bytes);
 void	*safe_calloc(size_t n_elem, size_t elem_size);

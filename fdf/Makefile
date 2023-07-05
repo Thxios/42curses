@@ -14,7 +14,7 @@ LIB_NAMES =	\
 LIBS = 		$(foreach LIB,$(LIB_NAMES),$(LIB_DIR)/$(LIB)/$(LIB).a)
 LIB_FLAGS =	$(addprefix -L$(LIB_DIR)/, $(LIB_NAMES)) \
 			$(addprefix -l, $(subst lib,,$(LIB_NAMES))) \
-			-lX11 -lm -lXext
+			-lm -framework OpenGL -framework AppKit
 
 
 INCLUDES =	includes \
