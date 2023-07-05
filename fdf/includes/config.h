@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:25:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:48:23 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 18:37:14 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 # define CAMERA_NEAR 0.1
 # define CAMERA_FAR 1000.
+
+# define MIN_HEIGHT 0.
+# define MAX_HEIGHT 10.
 
 # define PI 3.14159265358979323846
 

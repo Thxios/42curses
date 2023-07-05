@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:38:21 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 17:46:07 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 18:23:20 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ double	clipf(double val, double min, double max)
 	if (val > max)
 		return (max);
 	return (val);
+}
+
+double	maxf(double a, double b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }
 
 void	*safe_malloc(size_t size)

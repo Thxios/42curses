@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:09:45 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 17:56:59 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 18:37:58 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "utils/matrix.h"
 #include "utils/vector.h"
 #include "camera/camera.h"
+#include "render/color.h"
 
 typedef struct s_edge
 {
@@ -27,6 +28,7 @@ typedef struct s_vertex
 {
 	t_vec	p;
 	t_vec4	scr_p;
+	t_color	c;
 }			t_vertex;
 
 typedef struct s_obj3d

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:39:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 17:46:23 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/05 18:23:29 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int		clip(int val, int min, int max);
 double	clipf(double val, double min, double max);
+double	maxf(double a, double b);
 void	swap(int *a, int *b);
 int		ft_abs(int num);
 char	**split_and_size(char *s, int *size);
