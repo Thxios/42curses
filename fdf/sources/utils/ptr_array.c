@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ptr_array.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:43:56 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 19:10:22 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/06 23:09:33 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,19 @@ void	pop_ptr_array(t_ptr_arr *arr)
 		arr->size--;
 }
 
-void	delete_ptr_array(t_ptr_arr *arr)
+void	delete_ptr_array(t_ptr_arr *arr, void (*delete_elem)(void *))
 {
+	int	idx;
+
+	if (delete_elem)
+	{
+		idx = 0;
+		while (idx < arr->size)
+		{
+			delete_elem(arr->arr[idx]);
+			idx++;
+		}
+	}
 	free(arr->arr);
 	free(arr);
 }

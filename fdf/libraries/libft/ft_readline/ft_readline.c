@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 15:04:37 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 19:38:34 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/06 23:05:00 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-#include <stdio.h>
-#include <string.h>
-
-static void	alloc_expand(char **buffer, int size, int new_size)
+static int	alloc_expand(char **buffer, int size, int new_size)
 {
 	char	*new_buffer;
 
 	new_buffer = (char *)malloc(sizeof(char) * new_size);
 	if (new_buffer)
+	{
 		ft_memcpy(new_buffer, *buffer, size);
-	free(*buffer);
-	*buffer = new_buffer;
+		free(*buffer);
+		*buffer = new_buffer;
+		return (0);
+	}
+	return (-1);
 }
 
 static int	ft_readline_internal(int fd, char **buffer, int size)
@@ -44,7 +45,8 @@ static int	ft_readline_internal(int fd, char **buffer, int size)
 			break ;
 		if (idx >= size - 1)
 		{
-			alloc_expand(buffer, size, size * 2);
+			if (alloc_expand(buffer, size, size * 2) == -1)
+				return (-1);
 			size *= 2;
 		}
 		(*buffer)[idx] = c;

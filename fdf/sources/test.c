@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) {
 		int fd = open(argv[1], O_RDONLY);
 		upd_var.obj = new_from_file(fd);
 		close(fd);
-		translate(&upd_var.obj, (t_vec){0, 0, 26});
+		translate(upd_var.obj, (t_vec){0, 0, 26});
 	}
 	else
 	{

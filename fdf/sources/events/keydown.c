@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keydown.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 01:04:42 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 17:25:33 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/06 23:11:51 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	keydown_event(int keycode, t_keys *key)
 
 int	keyup_event(int keycode, t_keys *key)
 {
-	printf("keyup - code %d\n", keycode);
+	// printf("keyup - code %d\n", keycode);
 	set_key_pressed(keycode, key, 0);
 	return (0);
 }
