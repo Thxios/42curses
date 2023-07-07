@@ -14,8 +14,8 @@ LIB_NAMES =	\
 LIBS = 		$(foreach LIB,$(LIB_NAMES),$(LIB_DIR)/$(LIB)/$(LIB).a)
 LIB_FLAGS =	$(addprefix -L$(LIB_DIR)/, $(LIB_NAMES)) \
 			$(addprefix -l, $(subst lib,,$(LIB_NAMES))) \
-			-lm -lX11 -lXext
-			# -lm -framework OpenGL -framework AppKit
+			-lm -framework OpenGL -framework AppKit
+			# -lm -lX11 -lXext
 
 
 INCLUDES =	includes \
@@ -51,8 +51,8 @@ CAMERA_SRCS =	\
 EVENTS_DIR =	events
 EVENTS_SRCS =	\
 				quit.c \
-				keydown.c \
-				mousedown.c
+				key_event.c \
+				mouse_event.c
 
 UPDATE_DIR =	update
 UPDATE_SRCS =	\

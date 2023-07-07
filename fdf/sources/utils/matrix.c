@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:14:41 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/27 19:50:12 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 17:31:29 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,35 @@ void	matmul(t_mat4 a, t_mat4 b, t_mat4 out)
 	}
 }
 
-void	copy_matrix(t_mat4 dest, t_mat4 src)
+void	matmul_3d(t_mat4 a, t_mat4 b, t_mat4 out)
 {
 	int	row;
 	int	col;
 
 	row = 0;
-	while (row < 4)
+	while (row < 3)
 	{
 		col = 0;
-		while (col < 4)
+		while (col < 3)
+		{
+			out[row][col] = a[row][0] * b[0][col] + a[row][1] * b[1][col]
+				+ a[row][2] * b[2][col];
+			col++;
+		}
+		row++;
+	}
+}
+
+void	copy_matrix_3d(t_mat4 dest, t_mat4 src)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row < 3)
+	{
+		col = 0;
+		while (col < 3)
 		{
 			dest[row][col] = src[row][col];
 			col++;
@@ -49,13 +68,13 @@ void	copy_matrix(t_mat4 dest, t_mat4 src)
 	}
 }
 
-void	matmul_inplace(t_mat4 a, t_mat4 b)
-{
-	static t_mat4	tmp;
+// void	matmul_inplace(t_mat4 a, t_mat4 b)
+// {
+// 	static t_mat4	tmp;
 
-	matmul(a, b, tmp);
-	copy_matrix(a, tmp);
-}
+// 	matmul(a, b, tmp);
+// 	copy_matrix(a, tmp);
+// }
 
 void	proj_vec_to_vec4(t_mat4 m, t_vec v, t_vec4 out)
 {

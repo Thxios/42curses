@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:34:05 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 19:14:26 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 17:36:22 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	draw_edge(t_image *img, t_vertex *a, t_vertex *b)
 	if (is_outside_camera(a->scr_p) && is_outside_camera(b->scr_p))
 		return ;
 
-	draw_line(img, scr_to_pixel(a->scr_p), scr_to_pixel(b->scr_p), 0xffffff);
+	// draw_line(img, scr_to_pixel(a->scr_p), scr_to_pixel(b->scr_p), 0xffffff);
+	draw_line_grad(img, scr_to_pixel(a->scr_p), scr_to_pixel(b->scr_p), make_grad(a->c, b->c));
 }
 
 void	draw_object(t_image *img, t_obj3d *obj)

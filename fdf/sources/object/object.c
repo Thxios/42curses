@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:08:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/27 19:50:26 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 18:10:15 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,27 @@
 #include "utils/quaternion.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void	compute_camera_proj(t_obj3d *obj, t_camera *cam)
 {
 	int		idx;
-	t_mat4	trans_proj;
-	t_vec	rel_p;
+	static t_mat4	total;
+	// t_mat4	trans_proj;
+	// t_vec	rel_p;
 
-	matmul(obj->transform, cam->proj_mat, trans_proj);
+	// matmul(obj->rotation, cam->proj_mat, trans_proj);
+	// matmul(cam->proj_mat, obj->translation, tmp);
+	// matmul(tmp, obj->rotation, total);
+	// matmul(obj->translation, obj->transform, tmp);
+	matmul(cam->proj_mat, obj->transform, total);
+	printf("\ntransform:\n");
+	print_matrix(obj->transform);
+	printf("\ncam:\n");
+	print_matrix(cam->proj_mat);
+	printf("\ntotal:\n");
+	print_matrix(total);
+	exit(0);
 	// matmul(cam->proj_mat, obj->transform, trans_proj);
 	// printf("trans proj mat:\n");
 	// print_matrix(trans_proj);
@@ -33,12 +46,13 @@ void	compute_camera_proj(t_obj3d *obj, t_camera *cam)
 		//  obj->v[idx].p.y + obj->center.y,
 		//  obj->v[idx].p.z + obj->center.z};
 		// proj_vec_to_vec4(trans_proj, obj->v[idx].p, obj->v[idx].scr_p);
-		proj_vec_to_vec(obj->transform, obj->v[idx].p, &rel_p);
-		rel_p.x += obj->center.x;
-		rel_p.y += obj->center.y;
-		rel_p.z += obj->center.z;
+		// proj_vec_to_vec(obj->rotation, obj->v[idx].p, &rel_p);
+		// rel_p.x += obj->center.x;
+		// rel_p.y += obj->center.y;
+		// rel_p.z += obj->center.z;
 		// proj_vec_to_vec4(trans_proj, obj->v[idx].p, obj->v[idx].scr_p);
-		proj_vec_to_vec4(cam->proj_mat, rel_p, obj->v[idx].scr_p);
+		// proj_vec_to_vec4(cam->proj_mat, rel_p, obj->v[idx].scr_p);
+		proj_vec_to_vec4(total, obj->v[idx].p, obj->v[idx].scr_p);
 		if ((cam->type == PERSPECTIVE) && (obj->v[idx].scr_p[3] > 1e-6))
 		{
 			obj->v[idx].scr_p[0] /= obj->v[idx].scr_p[3];
@@ -48,7 +62,7 @@ void	compute_camera_proj(t_obj3d *obj, t_camera *cam)
 	}
 }
 
-void	init_transform(t_mat4 out, t_vec p)
+void	init_transform_matrix(t_mat4 out, t_vec p)
 {
 	out[0][0] = 1;
 	out[0][1] = 0;
@@ -68,7 +82,7 @@ void	init_transform(t_mat4 out, t_vec p)
 	out[3][3] = 1;
 }
 
-t_obj3d	*new_object3d(t_vec p)
+t_obj3d	*new_object3d(t_vec center)
 {
 	t_obj3d	*obj;
 
@@ -77,30 +91,25 @@ t_obj3d	*new_object3d(t_vec p)
 	obj->n_edges = 0;
 	obj->v = NULL;
 	obj->e = NULL;
-	obj->center = (t_vec){p.x, p.y, p.z};
-	// init_transform(obj->transform, p);
-	init_transform(obj->transform, (t_vec){0, 0, 0});
+	init_transform_matrix(obj->transform, center);
 	return (obj);
 }
 
-void	translate(t_obj3d *obj, t_vec d)
+void	translate_object(t_obj3d *obj, t_vec d)
 {
-	// obj->transform[0][3] += d.x;
-	// obj->transform[1][3] += d.y;
-	// obj->transform[2][3] += d.z;
-	obj->center.x += d.x;
-	obj->center.y += d.y;
-	obj->center.z += d.z;
+	obj->transform[0][3] += d.x;
+	obj->transform[1][3] += d.y;
+	obj->transform[2][3] += d.z;
 }
 
-void	rotate(t_obj3d *obj, t_vec axis, double angle)
+void	rotate_object(t_obj3d *obj, t_vec axis, double angle)
 {
 	static t_mat4	rot_matrix;
 	static t_mat4	tmp;
 
 	get_rotation_matrix(angle, axis, rot_matrix);
 	// matmul(obj->transform, rot_matrix, tmp);
-	matmul(rot_matrix, obj->transform, tmp);
-	copy_matrix(obj->transform, tmp);
+	matmul_3d(rot_matrix, obj->transform, tmp);
+	copy_matrix_3d(obj->transform, tmp);
 	// matmul_inplace(obj->transform, rot_matrix);
 }

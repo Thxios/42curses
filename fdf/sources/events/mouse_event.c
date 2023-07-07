@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mousedown.c                                        :+:      :+:    :+:   */
+/*   mouse_event.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:34:08 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:49:08 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 16:16:54 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 #include <stdio.h>
 
-int	mousedown_event(int button, int x, int y, void *arg)
+void	mousedown_trigger_event(int button, int x, int y)
 {
-	(void)arg;
-	printf("button %d - (%d, %d)\n", button, x, y);
 	if (button == BTN_WHEELUP)
 	{
 		camera_zoom(-1);
@@ -27,4 +25,11 @@ int	mousedown_event(int button, int x, int y, void *arg)
 	{
 		camera_zoom(1);
 	}
+}
+
+int	mousedown_event(int button, int x, int y, void *arg)
+{
+	(void)arg;
+	// printf("button %d - (%d, %d)\n", button, x, y);
+	mousedown_trigger_event(button, x, y);
 }

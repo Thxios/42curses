@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:38:27 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/25 00:05:37 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 16:28:47 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@
 int	render_frame(t_upd *var)
 {
 	fill(var->img, 0);
-	set_pixel(var->img, 100, 100, rgb2color(255, 0, 0));
-
-	draw_line_grad(var->img, (t_pos){100, 100}, (t_pos){300, 200}, make_grad(0xff0000, 0xff));
-	draw_line_grad(var->img, (t_pos){500, 500}, (t_pos){300, 200}, make_grad(0xff0000, 0xff));
-	draw_line_grad(var->img, (t_pos){100, 100}, (t_pos){100, 300}, make_grad(0xff0000, 0xff));
-	draw_line_grad(var->img, (t_pos){300, 200}, (t_pos){100, 300}, make_grad(0xff0000, 0xff));
-	draw_line_grad(var->img, (t_pos){600, 200}, (t_pos){500, 700}, make_grad(0xff0000, 0xff));
-	draw_line_grad(var->img, (t_pos){600, 200}, (t_pos){500, 700}, make_grad(0xff0000, 0xffff));
+	// set_pixel(var->img, 100, 100, rgb2color(255, 0, 0));
+	// draw_line_grad(var->img, (t_pos){100, 100}, (t_pos){300, 200}, make_grad(0xff0000, 0xff));
+	// draw_line_grad(var->img, (t_pos){500, 500}, (t_pos){300, 200}, make_grad(0xff0000, 0xff));
+	// draw_line_grad(var->img, (t_pos){100, 100}, (t_pos){100, 300}, make_grad(0xff0000, 0xff));
+	// draw_line_grad(var->img, (t_pos){300, 200}, (t_pos){100, 300}, make_grad(0xff0000, 0xff));
+	// draw_line_grad(var->img, (t_pos){600, 200}, (t_pos){500, 700}, make_grad(0xff0000, 0xff));
+	// draw_line_grad(var->img, (t_pos){600, 200}, (t_pos){500, 700}, make_grad(0xff0000, 0xffff));
 	if (var->obj)
 		draw_object(var->img, var->obj);
 	mlx_put_image_to_window(mlx(), window(), var->img->image, 0, 0);

@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.h                                           :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 16:25:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 15:48:10 by jimlee           ###   ########.fr       */
+/*   Created: 2023/07/07 16:03:22 by jimlee            #+#    #+#             */
+/*   Updated: 2023/07/07 16:14:23 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONFIG_H
-# define CONFIG_H
+#include "fdf.h"
 
-# define WIDTH 1280
-# define HEIGHT 960
-
-# define FPS 60
-
-# define CAMERA_FOV 60.
-
-# define CAMERA_LEFT -20.
-# define CAMERA_RIGHT 20.
-# define CAMERA_TOP 15.
-# define CAMERA_BOTTOM -15.
-
-# define CAMERA_NEAR 0.1
-# define CAMERA_FAR 1000.
-
-# define MIN_HEIGHT -10.
-# define MAX_HEIGHT 10.
-
-# define PI 3.14159265358979323846
-
-#endif
+void	initialize_hook(t_upd *upd_var)
+{
+	mlx_hook(window(), 17, 0, quit_event, 0);
+	mlx_hook(window(), 2, 1 << 0, keydown_event, &upd_var->key);
+	mlx_hook(window(), 3, 1 << 1, keyup_event, &upd_var->key);
+	mlx_hook(window(), 4, 1 << 2, mousedown_event, 0);
+}

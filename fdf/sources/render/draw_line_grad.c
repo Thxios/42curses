@@ -78,21 +78,23 @@ void	draw_line_grad(t_image *img, t_pos p1, t_pos p2, t_color_grad c_grad)
 	if (ft_abs(p1.x - p2.x) >= ft_abs(p1.y - p2.y))
 	{
 		if (p1.x < p2.x)
-			draw_line_grad_low(img, p1, p2, &c_grad);
-		else
 		{
 			reverse_grad(&c_grad);
+			draw_line_grad_low(img, p1, p2, &c_grad);
+		}
+		else
+		{
 			draw_line_grad_low(img, p2, p1, &c_grad);
 		}
 	}
 	else
 	{
 		if (p1.y < p2.y)
-			draw_line_grad_high(img, p1, p2, &c_grad);
-		else
 		{
 			reverse_grad(&c_grad);
-			draw_line_grad_high(img, p2, p1, &c_grad);
+			draw_line_grad_high(img, p1, p2, &c_grad);
 		}
+		else
+			draw_line_grad_high(img, p2, p1, &c_grad);
 	}
 }

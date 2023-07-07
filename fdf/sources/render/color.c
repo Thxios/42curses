@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 00:36:31 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/15 13:19:35 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 15:41:41 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,34 @@ t_color	blend(t_color_grad *color, double alpha)
 	int	g;
 	int	b;
 
+	alpha = clipf(alpha, 0, 1);
 	r = color->st.r + alpha * (color->ed.r - color->st.r);
 	g = color->st.g + alpha * (color->ed.g - color->st.g);
 	b = color->st.b + alpha * (color->ed.b - color->st.b);
 	// printf("blend %.3f - rgb(%d, %d, %d)\n", alpha, r, g, b);
+	return (rgb2color(r, g, b));
+}
+
+t_color	get_color_heatmap(double alpha)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	alpha = clipf(alpha, 0, 1);
+	if (alpha < 0.5)
+	{
+		alpha *= 2;
+		r = 255 * alpha;
+		g = 255 * alpha;
+		b = 255;
+	}
+	else
+	{
+		alpha = 1 - ((alpha - 0.5) * 2);
+		r = 255;
+		g = 255 * alpha;
+		b = 255 * alpha;
+	}
 	return (rgb2color(r, g, b));
 }

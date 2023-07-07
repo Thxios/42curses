@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:34:18 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 15:04:04 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/07 16:56:18 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-void	translate_object(t_keys *key, t_obj3d *obj)
+void	handle_object_translation(t_keys *key, t_obj3d *obj)
 {
 	static const double	speed = 0.25;
 	t_vec	delta;
@@ -38,10 +38,10 @@ void	translate_object(t_keys *key, t_obj3d *obj)
 		delta.z += speed;
 	if (key->k_lshift)
 		delta.z -= speed;
-	translate(obj, delta);
+	translate_object(obj, delta);
 }
 
-void	rotate_object(t_keys *key, t_obj3d *obj)
+void	handle_object_rotation(t_keys *key, t_obj3d *obj)
 {
 	static const double	rot_speed = 0.05;
 	double	angle;
@@ -51,25 +51,25 @@ void	rotate_object(t_keys *key, t_obj3d *obj)
 		angle += rot_speed;
 	if (key->k_s)
 		angle -= rot_speed;
-	rotate(obj, (t_vec){1, 0, 0}, angle);
+	rotate_object(obj, (t_vec){1, 0, 0}, angle);
 	angle = 0;
 	if (key->k_a)
 		angle += rot_speed;
 	if (key->k_d)
 		angle -= rot_speed;
-	rotate(obj, (t_vec){0, 1, 0}, angle);
+	rotate_object(obj, (t_vec){0, 1, 0}, angle);
 	angle = 0;
 	if (key->k_q)
 		angle += rot_speed;
 	if (key->k_e)
 		angle -= rot_speed;
-	rotate(obj, (t_vec){0, 0, 1}, angle);
+	rotate_object(obj, (t_vec){0, 0, 1}, angle);
 }
 
 void	handle_transform(t_keys *key, t_obj3d *obj)
 {
-	translate_object(key, obj);
-	rotate_object(key, obj);
+	handle_object_translation(key, obj);
+	handle_object_rotation(key, obj);
 	// if (key->)
 }
 
@@ -96,6 +96,7 @@ long	get_time_elapsed(struct timeval *st)
 
 int	frame(t_upd *var)
 {
+	static long long t = 0;
 	struct timeval	st;
 
 	gettimeofday(&st, NULL);
@@ -103,10 +104,14 @@ int	frame(t_upd *var)
 	var->cnt++;
 	update_frame(var);
 	render_frame(var);
+	t += get_time_elapsed(&st);
 	while (get_time_elapsed(&st) < (1e+6 / FPS))
 		usleep(500);
 	if (var->cnt >= FPS)
 	{
+		double fps = FPS * 1e+6 / (double)(t + 1);
+		printf("FPS: %.2f\n", fps);
+		t = 0;
 		// printf("st(s=%li, us=%li)\n", st.tv_sec, st.tv_usec);
 		// printf("ed(s=%li, us=%li)\n", ed.tv_sec, ed.tv_usec);
 		// printf("time %li usec, cnt %d\n", timediff, var->cnt);
