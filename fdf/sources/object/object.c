@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:08:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 18:10:15 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/08 14:30:22 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	compute_camera_proj(t_obj3d *obj, t_camera *cam)
 	// matmul(tmp, obj->rotation, total);
 	// matmul(obj->translation, obj->transform, tmp);
 	matmul(cam->proj_mat, obj->transform, total);
-	printf("\ntransform:\n");
-	print_matrix(obj->transform);
-	printf("\ncam:\n");
-	print_matrix(cam->proj_mat);
-	printf("\ntotal:\n");
-	print_matrix(total);
-	exit(0);
+	// printf("\ntransform:\n");
+	// print_matrix(obj->transform);
+	// printf("\ncam:\n");
+	// print_matrix(cam->proj_mat);
+	// printf("\ntotal:\n");
+	// print_matrix(total);
+	// exit(0);
 	// matmul(cam->proj_mat, obj->transform, trans_proj);
 	// printf("trans proj mat:\n");
 	// print_matrix(trans_proj);

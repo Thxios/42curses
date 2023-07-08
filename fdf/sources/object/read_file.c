@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:29 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 16:33:51 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/08 14:32:52 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ void	init_obj_vertices(t_obj3d *obj, t_map_info *info)
 	int				v_idx;
 	double			gap;
 
-	gap = clipf(20. / maxf(info->n_col, info->n_row), 0.1, 5);
+	gap = clipf(30. / maxf(info->n_col, info->n_row), 0.1, 5);
+	printf("gap %.3f\n", gap);
 	// offset_x = ((double)(info->n_row - 1) / 2) * gap;
 	// offset_y = ((double)(info->n_col - 1) / 2) * gap;
 	r = 0;

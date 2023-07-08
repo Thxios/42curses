@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quaternion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:16:47 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 18:12:21 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/08 14:28:38 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	normalize_quat(t_quat *q)
 {
 	double	mag;
 
-	mag = sqrt(q->r * q->r + q->i * q->i + q->j + q->j + q->k * q->k);
+	mag = sqrt(q->r * q->r + q->i * q->i + q->j * q->j + q->k * q->k);
 	if (fabs(mag) > 1e-6)
 	{
 		q->r /= mag;
@@ -61,6 +61,6 @@ void	get_rotation_matrix(double angle, t_vec axis, t_mat4 out)
 	q.k = axis.z * sin_half;
 	normalize_quat(&q);
 	quat_to_matrix(q, out);
-	printf("\nrot mat %.2f angle:\n", angle/PI * 180.);
-	print_matrix(out);
+	// printf("\nrot mat %.2f angle:\n", angle/PI * 180.);
+	// print_matrix(out);
 }

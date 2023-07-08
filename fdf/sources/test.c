@@ -139,8 +139,8 @@ int main(int argc, char *argv[])
 
 		upd_var.obj = new_obj_test2();
 	}
-	rotate_object(upd_var.obj, (t_vec){0, 1, 0}, PI);
-	rotate_object(upd_var.obj, (t_vec){1, 0, 0}, -PI/6);
+	rotate_object(upd_var.obj, (t_vec){0, 1, 0}, PI/4);
+	rotate_object(upd_var.obj, (t_vec){1, 0, 0}, -PI/4);
 	// translate(upd_var.obj, (t_vec){0, 0, 26});
 	// set_pixel(img, 100, 100, rgb2color(255, 0, 0));
 
