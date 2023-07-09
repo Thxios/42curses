@@ -6,12 +6,14 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:11:58 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:30:09 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:10:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATRIX_H
 # define MATRIX_H
+
+# include "utils/vector.h"
 
 typedef double	t_mat4[4][4];
 typedef double	t_vec4[4];

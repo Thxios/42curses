@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:42:38 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 17:13:59 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 21:05:52 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_camera
 t_camera	*camera(void);
 void		init_camera(void);
 void		toggle_camera_type(void);
-// void		set_proj_orthographic(void);
-// void		set_proj_perspective(void);
+void		set_proj_orthographic(void);
+void		set_proj_perspective(void);
 void		zoom_camera(double delta);
 
 #endif

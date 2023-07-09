@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:32:57 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:09:18 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:19:09 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "object/object.h"
 # include "render/buffer.h"
+# include "utils/point.h"
+# include "utils/matrix.h"
 
 t_pos	scr_to_pixel(t_vec4 scr_p);
 void	draw_edge_internal(t_image *img, t_vertex *a, t_vertex *b);

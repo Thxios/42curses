@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:51:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 17:45:26 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 21:07:46 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out, double mag)
 {
 	double	mag_f;
 
-	mag_f = pow(2, mag) * cfg->f;
+	mag_f = pow(2, -mag) * cfg->f;
 	out[0][0] = cfg->a * mag_f;
 	out[0][1] = 0;
 	out[0][2] = 0;

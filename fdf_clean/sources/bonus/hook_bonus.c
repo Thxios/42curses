@@ -6,10 +6,11 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 19:16:59 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:45:11 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:25:39 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "mlx.h"
 #include "config.h"
 #include "update.h"

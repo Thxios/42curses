@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:04:53 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 18:47:02 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:31:56 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int main(int argc, char *argv[])
 	if (argc != 2)
 		custom_error("no input file");
 	map_obj = open_map_file(argv[1]);
-	initialize(&upd);
-	upd.obj = map_obj;
+	initialize(&upd, map_obj);
 	start_loop();
 	return (0);
 }

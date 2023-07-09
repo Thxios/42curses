@@ -1,27 +1,27 @@
 
 
 CC =		gcc
-CFLAGS =	-Wall -Wextra -fsanitize=address
-# CFLAGS =	-Wall -Wextra
+# CFLAGS =	-Wall -Wextra -fsanitize=address
+CFLAGS =	-Wall -Wextra -fsanitize=address -Wall
+# CFLAGS =	-Wall -Wextra -Wall
 
 NAME =	fdf
 
 
 LIB_DIR =	libraries
-LIB_NAMES =	\
-			libft \
-			libmlx
-LIBS = 		$(foreach LIB,$(LIB_NAMES),$(LIB_DIR)/$(LIB)/$(LIB).a)
-LIB_FLAGS =	$(addprefix -L$(LIB_DIR)/, $(LIB_NAMES)) \
-			$(addprefix -l, $(subst lib,,$(LIB_NAMES))) \
+LIBFT =		$(LIB_DIR)/libft/libft.a
+LIBMLX =	$(LIB_DIR)/libmlx/libmlx.a
+
+LIB_FLAGS =	-L$(dir $(LIBFT)) -L$(dir $(LIBMLX)) \
+			-lft -lmlx \
 			-lm -framework OpenGL -framework AppKit
 			# -lm -lX11 -lXext
 
 
-INCLUDES =	includes \
-			$(addprefix $(LIB_DIR)/, $(LIB_NAMES))
-			# $(LIB_DIR)
-INC_FLAGS =	$(addprefix -I, $(INCLUDES))
+INC_PATHS =	includes \
+			$(dir $(LIBFT)) \
+			$(dir $(LIBMLX))
+INC_FLAGS =	$(addprefix -I, $(INC_PATHS))
 
 
 SRCS_DIR =	sources
@@ -53,49 +53,63 @@ EVENTS_SRCS =	\
 				key_event.c \
 				mouse_event.c
 
-UPDATE_DIR =	update
-UPDATE_SRCS =	\
-				frame.c
-
 OBJECT_DIR =	object
 OBJECT_SRCS =	\
 				object.c \
 				parse_map_info.c \
-				build_obj.c
+				build_obj.c \
+				read_file.c
 
 UTIL_DIR =	utils
 UTIL_SRCS =	\
-			utils.c \
+			alloc_utils.c \
+			num_utils.c \
+			parse_utils.c \
+			time_utils.c \
 			matrix.c \
-			point.c \
 			quaternion.c \
 			vector.c \
 			ptr_array.c \
 			error.c
 
-SRCS_BASE = \
+MANDAT_DIR =	mandatory
+MANDAT_SRCS =	\
+				draw_edge.c \
+				hook.c
+BONUS_DIR =		bonus
+BONUS_SRCS =	\
+				draw_edge_bonus.c \
+				hook_bonus.c
+
+MAIN_SRC =	\
+			fdf.c \
+			initialize.c
+
+
+SRCS_BASE =	$(MAIN_SRC) \
 			$(addprefix $(CTX_DIR)/, $(CTX_SRCS)) \
 			$(addprefix $(RENDER_DIR)/, $(RENDER_SRCS)) \
 			$(addprefix $(CAMERA_DIR)/, $(CAMERA_SRCS)) \
 			$(addprefix $(EVENTS_DIR)/, $(EVENTS_SRCS)) \
-			$(addprefix $(UPDATE_DIR)/, $(UPDATE_SRCS)) \
 			$(addprefix $(OBJECT_DIR)/, $(OBJECT_SRCS)) \
 			$(addprefix $(UTIL_DIR)/, $(UTIL_SRCS))
 
 SRCS =		$(addprefix $(SRCS_DIR)/, $(SRCS_BASE))
 OBJS =		$(SRCS:.c=.o)
 
-OBJS_TEST =	$(addprefix build/, $(notdir $(SRCS:.c=.o)))
+MANDAT_BASE =	$(addprefix $(SRCS_DIR)/$(MANDAT_DIR)/, $(MANDAT_SRCS))
+MANDAT_OBJS =	$(MANDAT_BASE:.c=.o)
 
-MAIN_SRC =	test.c
-MAIN_OBJ =	$(SRCS_DIR)/$(MAIN_SRC:.c=.o)
+BONUS_BASE =	$(addprefix $(SRCS_DIR)/$(BONUS_DIR)/, $(BONUS_SRCS))
+BONUS_OBJS =	$(BONUS_BASE:.c=.o)
 
-
+ifdef BUILD_BONUS
+COMPLEMENTARY =	$(BONUS_OBJS)
+else
+COMPLEMENTARY = $(MANDAT_OBJS)
+endif
 
 all: $(NAME)
-
-echo:
-	@echo $(OBJS_TEST)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INC_FLAGS) -c $^ -o $@
@@ -103,14 +117,13 @@ echo:
 $(LIB_DIR)/%.a:
 	$(MAKE) all -C $(dir $@)
 
-$(NAME): $(OBJS) $(MAIN_OBJ) $(LIBS)
-	$(CC) $(CFLAGS) $(OBJS) $(MAIN_OBJ) -o $@ $(LIB_FLAGS)
+$(NAME): $(OBJS) $(COMPLEMENTARY) $(LIBFT) $(LIBMLX)
+	$(CC) $(CFLAGS) $(OBJS) $(COMPLEMENTARY) -o $@ $(LIB_FLAGS)
 
 clean:
-	# for LIB_NAME in $(LIB_NAMES) ; do \
-	# 	$(MAKE) clean -C $(LIB_DIR)/$$LIB_NAME ; \
-	# done
-	rm -f $(OBJS) $(MAIN_OBJ)
+	$(MAKE) fclean -C $(dir $(LIBFT))
+	$(MAKE) clean -C $(dir $(LIBMLX))
+	rm -f $(OBJS) $(MANDAT_OBJS) $(BONUS_OBJS)
 
 fclean: clean
 	rm -f $(NAME)

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc.c                                            :+:      :+:    :+:   */
+/*   alloc_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 19:20:08 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:22:09 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:14:51 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
-#include "utils/safe_alloc.h"
 #include "utils/error.h"
 
 void	*safe_malloc(size_t size)

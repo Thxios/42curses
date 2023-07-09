@@ -6,14 +6,13 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:34:05 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:09:18 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:31:03 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "config.h"
 #include "render/draw_obj.h"
 #include "camera/camera.h"
-#include "utils/point.h"
-#include "config.h"
 
 #include <stdio.h>
 

@@ -6,16 +6,15 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:38:27 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:12:50 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:30:24 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
+#include "update.h"
 #include "render/render.h"
 #include "context/context.h"
-#include "utils/point.h"
-#include "mlx.h"
 #include "render/draw.h"
-#include "update.h"
 #include "render/draw_obj.h"
 
 void	render_frame(t_upd *upd)

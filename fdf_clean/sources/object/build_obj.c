@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:38:11 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 18:51:55 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 21:02:49 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "utils/utils.h"
 #include "object/object.h"
 #include "object/map_info.h"
+
+#include <stdio.h>
 
 int	validate_map_file_extension(char *path)
 {
@@ -72,8 +74,8 @@ void	init_obj_vertices(t_obj3d *obj, t_map_info *info)
 	int		v_idx;
 	double	gap;
 
-	gap = clipf(30. / maxf(info->n_col, info->n_row), 0.1, 5);
-	// printf("gap %.3f\n", gap);
+	gap = clipf(25. / maxf(info->n_col, info->n_row), 0.25, 5);
+	printf("gap %.3f\n", gap);
 	// offset_x = ((double)(info->n_row - 1) / 2) * gap;
 	// offset_y = ((double)(info->n_col - 1) / 2) * gap;
 	r = 0;
@@ -84,7 +86,7 @@ void	init_obj_vertices(t_obj3d *obj, t_map_info *info)
 		{
 			v_idx = rc_to_idx(r, c, info->n_col);
 			obj->v[v_idx].p.x = (c - (info->n_col - 1.) / 2.) * gap;
-			obj->v[v_idx].p.y = info->height[r][c] / 5.;
+			obj->v[v_idx].p.y = info->height[r][c] * gap;
 			obj->v[v_idx].p.z = -(r - (info->n_row - 1.) / 2.) * gap;
 			obj->v[v_idx].c = get_color_heatmap(
 				((double)info->height[r][c] - MIN_HEIGHT) / (MAX_HEIGHT - MIN_HEIGHT));

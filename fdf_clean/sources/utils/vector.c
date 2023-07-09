@@ -6,10 +6,11 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:55:11 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:29:36 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 20:15:46 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "utils/vector.h"
 
 void	normalize_vec(t_vec *v)
