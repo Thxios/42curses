@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 19:16:59 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 20:25:39 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:27:33 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,51 +20,47 @@
 #include "render/render.h"
 #include "utils/timestamp.h"
 
-#include <stdio.h>
-
 void	handle_object_translation(t_keys *key, t_obj3d *obj)
 {
-	static const double	speed = 0.25;
 	t_vec	delta;
 
 	delta = (t_vec){0, 0, 0};
 	if (key->k_left)
-		delta.x -= speed;
+		delta.x -= OBJ_TRANSLATE_SPEED;
 	if (key->k_right)
-		delta.x += speed;
+		delta.x += OBJ_TRANSLATE_SPEED;
 	if (key->k_up)
-		delta.y += speed;
+		delta.y += OBJ_TRANSLATE_SPEED;
 	if (key->k_down)
-		delta.y -= speed;
+		delta.y -= OBJ_TRANSLATE_SPEED;
 	if (key->k_space)
-		delta.z += speed;
+		delta.z += OBJ_TRANSLATE_SPEED;
 	if (key->k_lshift)
-		delta.z -= speed;
+		delta.z -= OBJ_TRANSLATE_SPEED;
 	translate_object(obj, delta);
 }
 
 void	handle_object_rotation(t_keys *key, t_obj3d *obj)
 {
-	static const double	rot_speed = 0.05;
 	double	angle;
 
 	angle = 0;
 	if (key->k_w)
-		angle += rot_speed;
+		angle += OBJ_ROTATE_SPEED;
 	if (key->k_s)
-		angle -= rot_speed;
+		angle -= OBJ_ROTATE_SPEED;
 	rotate_object(obj, (t_vec){1, 0, 0}, angle);
 	angle = 0;
 	if (key->k_a)
-		angle += rot_speed;
+		angle += OBJ_ROTATE_SPEED;
 	if (key->k_d)
-		angle -= rot_speed;
+		angle -= OBJ_ROTATE_SPEED;
 	rotate_object(obj, (t_vec){0, 1, 0}, angle);
 	angle = 0;
 	if (key->k_q)
-		angle += rot_speed;
+		angle += OBJ_ROTATE_SPEED;
 	if (key->k_e)
-		angle -= rot_speed;
+		angle -= OBJ_ROTATE_SPEED;
 	rotate_object(obj, (t_vec){0, 0, 1}, angle);
 }
 
@@ -91,13 +87,8 @@ int	frame(t_upd *var)
 		usleep(500);
 	if (var->cnt >= FPS)
 	{
-		double fps = FPS * 1e+6 / (double)(t + 1);
-		printf("FPS: %.2f\n", fps);
 		t = 0;
-		print_matrix(var->obj->transform);
 		adjust_unit_transform_matrix(var->obj->transform);
-		printf("\n");
-
 		var->cnt = 0;
 	}
 	return (0);

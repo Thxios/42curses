@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:25:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 18:17:39 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:26:52 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 
 # define MIN_HEIGHT -10.
 # define MAX_HEIGHT 10.
+
+# define MAP_OBJ_SIZE 25.
+
+# define OBJ_TRANSLATE_SPEED 0.25
+# define OBJ_ROTATE_SPEED 0.05
 
 # define PI 3.14159265358979323846
 

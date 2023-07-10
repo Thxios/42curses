@@ -1,9 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/07/10 10:44:17 by jimlee            #+#    #+#              #
+#    Updated: 2023/07/10 10:44:30 by jimlee           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 
 CC =		gcc
-# CFLAGS =	-Wall -Wextra -fsanitize=address
-CFLAGS =	-Wall -Wextra -fsanitize=address -Wall
-# CFLAGS =	-Wall -Wextra -Wall
+CFLAGS =	-Wall -Wextra -Wall
 
 NAME =	fdf
 

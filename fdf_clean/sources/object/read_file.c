@@ -6,14 +6,14 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:48:58 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 20:14:27 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:12:58 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "utils/error.h"
-#include "object/object.h"
 #include "object/map_info.h"
+#include "object/object.h"
+#include "utils/error.h"
 
 t_obj3d	*open_map_file(char *filename)
 {

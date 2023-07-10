@@ -6,16 +6,14 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:55:29 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 18:48:43 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:34:02 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "object/map_info.h"
 #include "utils/utils.h"
 #include "utils/ptr_array.h"
-#include "object/map_info.h"
-
-#include <stdio.h>
 
 void	delete_map_info(t_map_info *map)
 {
@@ -41,11 +39,9 @@ t_ptr_arr	*read_lines_as_ptr_arr(int fd)
 	{
 		line = ft_readline(fd);
 		if (!line)
-			break;
-		// printf("read line %p, \"%s\": len %d\n", line, line, (int)ft_strlen(line));
+			break ;
 		push_ptr_array(lines, line);
 	}
-	// printf("readline done\n");
 	return (lines);
 }
 
@@ -62,7 +58,8 @@ int	lines_to_map_info(t_ptr_arr *lines, t_map_info *map)
 	if (map->n_col == 0)
 		return (-1);
 	idx = 1;
-	while (idx < lines->size) {
+	while (idx < lines->size)
+	{
 		map->height[idx] = map_atoi_to_splited(lines->arr[idx], &tmp_n_col);
 		if (tmp_n_col != map->n_col)
 			return (-1);

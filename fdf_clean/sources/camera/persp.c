@@ -6,14 +6,14 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:51:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 21:07:46 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:08:25 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "config.h"
-#include "camera/camera.h"
 #include "camera/persp.h"
+#include "camera/camera.h"
 
 t_persp	*get_persp_config(void)
 {

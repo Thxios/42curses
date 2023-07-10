@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:22:49 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 16:49:09 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:29:37 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_context	*ctx(void)
 
 void	*mlx(void)
 {
-	return	(ctx()->mlx);
+	return (ctx()->mlx);
 }
 
 void	*window(void)
@@ -45,4 +45,3 @@ void	launch_window(int width, int height, char *title)
 	context = ctx();
 	context->window = mlx_new_window(context->mlx, width, height, title);
 }
-

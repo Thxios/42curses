@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:42:31 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 17:13:47 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:29:16 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "camera/ortho.h"
 #include "camera/persp.h"
 
-t_camera	*camera()
+t_camera	*camera(void)
 {
 	static t_camera	cam;
 
@@ -33,8 +33,7 @@ void	toggle_camera_type(void)
 	}
 }
 
-
-void	init_camera()
+void	init_camera(void)
 {
 	t_camera	*cam;
 

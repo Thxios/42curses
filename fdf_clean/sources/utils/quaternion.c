@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:16:47 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 19:24:57 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:37:08 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	quat_to_matrix(t_quat q, t_mat4 out)
 	out[0][3] = 0;
 	out[1][0] = 2 * (q.i * q.j + q.k * q.r);
 	out[1][1] = 1 - 2 * (q.i * q.i + q.k * q.k);
-	out[1][2] = 2 * (q.j * q.k +-q.i * q.r);
+	out[1][2] = 2 * (q.j * q.k - q.i * q.r);
 	out[1][3] = 0;
 	out[2][0] = 2 * (q.i * q.k - q.j * q.r);
 	out[2][1] = 2 * (q.j * q.k + q.i * q.r);

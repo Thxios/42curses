@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:08:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 16:25:38 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:12:04 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "object/object.h"
 #include "utils/utils.h"
 #include "utils/quaternion.h"
-
-#include <stdio.h>
-#include <stdlib.h>
 
 void	init_transform_matrix(t_mat4 out, t_vec p)
 {
@@ -63,8 +60,6 @@ void	rotate_object(t_obj3d *obj, t_vec axis, double angle)
 	static t_mat4	tmp;
 
 	get_rotation_matrix(angle, axis, rot_matrix);
-	// matmul(obj->transform, rot_matrix, tmp);
 	matmul_3d(rot_matrix, obj->transform, tmp);
 	copy_matrix_3d(obj->transform, tmp);
-	// matmul_inplace(obj->transform, rot_matrix);
 }

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:03:22 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 20:41:55 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:22:48 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 #include "render/buffer.h"
 #include "render/render.h"
 #include "context/context.h"
-#include "events/events.h"
 #include "camera/camera.h"
-
 
 void	initialize(t_upd *upd, t_obj3d *map_obj)
 {

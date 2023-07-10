@@ -6,14 +6,13 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:14:41 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 16:47:32 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:36:39 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "utils/matrix.h"
-
-#include <stdio.h>
+#include "utils/vector.h"
 
 void	matmul(t_mat4 a, t_mat4 b, t_mat4 out)
 {
@@ -85,30 +84,19 @@ void	adjust_unit_transform_matrix(t_mat4 mat)
 	double	r2;
 	double	r3;
 
-	r1 = sqrt(mat[0][0] * mat[0][0] 
-		+ mat[1][0] * mat[1][0] + mat[2][0] * mat[2][0]);
-	r2 = sqrt(mat[0][1] * mat[0][1] 
-		+ mat[1][1] * mat[1][1] + mat[2][1] * mat[2][1]);
-	r3 = sqrt(mat[0][2] * mat[0][2] 
-		+ mat[1][2] * mat[1][2] + mat[2][2] * mat[2][2]);
-	printf("mag x=%.4f, y=%.4f, z=%.4f\n", r1, r2, r3);
+	r1 = sqrt(mat[0][0] * mat[0][0]
+			+ mat[1][0] * mat[1][0] + mat[2][0] * mat[2][0]);
+	r2 = sqrt(mat[0][1] * mat[0][1]
+			+ mat[1][1] * mat[1][1] + mat[2][1] * mat[2][1]);
+	r3 = sqrt(mat[0][2] * mat[0][2]
+			+ mat[1][2] * mat[1][2] + mat[2][2] * mat[2][2]);
+	mat[0][0] /= r1;
+	mat[0][1] /= r1;
+	mat[0][2] /= r1;
+	mat[1][0] /= r2;
+	mat[1][1] /= r2;
+	mat[1][2] /= r2;
+	mat[2][0] /= r3;
+	mat[2][1] /= r3;
+	mat[2][2] /= r3;
 }
-
-#include <stdio.h>
-void print_matrix(t_mat4 mat) {
-	for (int i = 0; i < 4; i++) {
-		printf((i == 0) ? "[" : " ");
-		for (int j = 0; j < 4; j++) {
-			printf("% .2f", mat[i][j]);
-			printf(" ");
-		}
-		if (i == 3)
-			printf("]");
-		printf("\n");
-	}
-}
-void	print_vec4(t_vec4 v)
-{
-	printf("(%.2f, %.2f, %.2f, %.2f)", v[0], v[1], v[2], v[3]);
-}
-

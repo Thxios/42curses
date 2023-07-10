@@ -6,12 +6,12 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:38:35 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/09 16:55:41 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/10 10:23:17 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUTTON_H
-# define BUTTON_H
+#ifndef BUTTONS_H
+# define BUTTONS_H
 
 typedef enum e_buttoncode
 {
