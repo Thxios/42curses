@@ -6,13 +6,13 @@
 #    By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 10:44:17 by jimlee            #+#    #+#              #
-#    Updated: 2023/07/10 10:44:30 by jimlee           ###   ########.fr        #
+#    Updated: 2023/07/10 10:51:26 by jimlee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC =		gcc
-CFLAGS =	-Wall -Wextra -Wall
+CFLAGS =	-Wall -Wextra -Werror
 
 NAME =	fdf
 
