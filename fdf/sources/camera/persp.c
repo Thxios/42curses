@@ -3,39 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   persp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:51:33 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 17:17:24 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 17:45:26 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "camera/camera.h"
 #include "config.h"
+#include "camera/camera.h"
 #include "camera/persp.h"
 
 t_persp	*get_persp_config(void)
 {
-	static t_persp	config = (t_persp){
-		1, (double)HEIGHT / WIDTH,
-		CAMERA_NEAR, CAMERA_FAR,
-		0
-	};
+	static t_persp	config;
 
 	return (&config);
 }
 
-void	init_persp_config(t_persp *conf)
+void	init_persp_config(void)
 {
-	conf->f = 1 / tan(CAMERA_FOV / 360. * PI);
+	t_persp	*conf;
+
+	conf = get_persp_config();
+	conf->f = 1 / tan(CAMERA_PERSP_FOV / 360. * PI);
+	conf->a = (double)HEIGHT / WIDTH;
+	conf->near = CAMERA_NEAR;
+	conf->far = CAMERA_FAR;
 }
 
-void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out)
+void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out, double mag)
 {
 	double	mag_f;
 
-	mag_f = pow(2, -cfg->mag) * cfg->f;
+	mag_f = pow(2, mag) * cfg->f;
 	out[0][0] = cfg->a * mag_f;
 	out[0][1] = 0;
 	out[0][2] = 0;
@@ -52,4 +54,13 @@ void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out)
 	out[3][1] = 0;
 	out[3][2] = 1;
 	out[3][3] = 0;
+}
+
+void	set_proj_perspective(void)
+{
+	t_camera	*cam;
+
+	cam = camera();
+	cam->type = PERSPECTIVE;
+	get_persp_proj_matrix(get_persp_config(), cam->proj_mat, cam->mag);
 }

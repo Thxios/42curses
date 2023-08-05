@@ -6,18 +6,23 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 01:55:52 by jimlee            #+#    #+#             */
-/*   Updated: 2023/05/24 11:50:10 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 19:08:19 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "events/events.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include "mlx.h"
+#include "update.h"
+#include "context/context.h"
 
-int	quit_event(void)
+#include <stdio.h>
+
+int	quit_event(t_upd *upd)
 {
-	printf("quit button\n");
-	// mlx_destroy_window(mlx(), window());
+	printf("quit event\n");
+	if (upd->img)
+		mlx_destroy_image(mlx(), upd->img->image);
+	mlx_destroy_window(mlx(), window());
 	exit(0);
 	return (0);
 }

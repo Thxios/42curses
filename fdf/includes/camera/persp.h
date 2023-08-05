@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   persp.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 01:28:47 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/05 17:18:11 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 17:11:29 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ typedef struct s_persp
 	double	a;
 	double	near;
 	double	far;
-	double	mag;
 }			t_persp;
 
-t_persp	*get_persp_config(void);
-void	init_persp_config(t_persp *conf);
-void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out);
+// t_persp	*get_persp_config(void);
+void	init_persp_config(void);
+// void	get_persp_proj_matrix(t_persp *cfg, t_mat4 out, double mag);
+void	set_proj_perspective(void);
 
 #endif

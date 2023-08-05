@@ -14,8 +14,8 @@ LIB_NAMES =	\
 LIBS = 		$(foreach LIB,$(LIB_NAMES),$(LIB_DIR)/$(LIB)/$(LIB).a)
 LIB_FLAGS =	$(addprefix -L$(LIB_DIR)/, $(LIB_NAMES)) \
 			$(addprefix -l, $(subst lib,,$(LIB_NAMES))) \
-			-lm -lX11 -lXext
-			# -lm -framework OpenGL -framework AppKit
+			-lm -framework OpenGL -framework AppKit
+			# -lm -lX11 -lXext
 
 
 INCLUDES =	includes \
@@ -28,8 +28,7 @@ SRCS_DIR =	sources
 
 CTX_DIR =	context
 CTX_SRCS =	\
-			context.c \
-			initialize.c
+			context.c
 
 RENDER_DIR =	render
 RENDER_SRCS =	\
@@ -61,7 +60,8 @@ UPDATE_SRCS =	\
 OBJECT_DIR =	object
 OBJECT_SRCS =	\
 				object.c \
-				read_file.c
+				parse_map_info.c \
+				build_obj.c
 
 UTIL_DIR =	utils
 UTIL_SRCS =	\
@@ -103,8 +103,8 @@ echo:
 $(LIB_DIR)/%.a:
 	$(MAKE) all -C $(dir $@)
 
-$(NAME): $(OBJS) $(MAIN_OBJ)
-	$(CC) $(CFLAGS) $(INC_FLAGS) $^ -o $@ $(LIB_FLAGS)
+$(NAME): $(OBJS) $(MAIN_OBJ) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJS) $(MAIN_OBJ) -o $@ $(LIB_FLAGS)
 
 clean:
 	# for LIB_NAME in $(LIB_NAMES) ; do \
@@ -117,4 +117,7 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+bonus:
+	$(MAKE) BUILD_BONUS=1 all
+
+.PHONY: all clean fclean re bonus

@@ -6,12 +6,12 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:16:47 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/08 14:28:38 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 19:24:57 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "utils/quaternion.h"
-#include "math.h"
 
 void	normalize_quat(t_quat *q)
 {
@@ -46,8 +46,7 @@ void	quat_to_matrix(t_quat q, t_mat4 out)
 	out[3][2] = 0;
 	out[3][3] = 1;
 }
-#include <stdio.h>
-#include "config.h"
+
 void	get_rotation_matrix(double angle, t_vec axis, t_mat4 out)
 {
 	double	sin_half;
@@ -61,6 +60,4 @@ void	get_rotation_matrix(double angle, t_vec axis, t_mat4 out)
 	q.k = axis.z * sin_half;
 	normalize_quat(&q);
 	quat_to_matrix(q, out);
-	// printf("\nrot mat %.2f angle:\n", angle/PI * 180.);
-	// print_matrix(out);
 }

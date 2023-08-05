@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:48:12 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/08 14:18:18 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 15:11:57 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYS_H
 # define KEYS_H
-/*
+
 typedef enum e_keycode
 {
 	KEY_Q = 12,
@@ -30,8 +30,8 @@ typedef enum e_keycode
 	KEY_TAB = 48,
 	KEY_ESCAPE = 53,
 }	t_keycode;
-*/
 
+/*
 typedef enum e_keycode
 {
 	KEY_Q = 113,
@@ -49,7 +49,7 @@ typedef enum e_keycode
 	KEY_TAB = 65289,
 	KEY_ESCAPE = 65307,
 }	t_keycode;
-
+*/
 
 typedef struct s_keys
 {

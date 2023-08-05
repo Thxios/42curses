@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:49:34 by jimlee            #+#    #+#             */
-/*   Updated: 2023/06/23 14:42:06 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 17:12:49 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ typedef struct s_ortho
 	double	bottom;
 	double	near;
 	double	far;
-	double	mag;
 }			t_ortho;
 
-t_ortho	*get_ortho_config(void);
-void	get_ortho_proj_matrix(t_ortho *cfg, t_mat4 out);
+// t_ortho	*get_ortho_config(void);
+void	init_ortho_config(void);
+// void	get_ortho_proj_matrix(t_ortho *cfg, t_mat4 out, double mag);
+void	set_proj_orthographic(void);
 
 #endif

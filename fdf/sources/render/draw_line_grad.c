@@ -15,6 +15,15 @@
 #include "utils/point.h"
 #include "render/color.h"
 
+void	reverse_grad(t_color_grad *color)
+{
+	t_rgb	tmp;
+
+	tmp = color->st;
+	color->st = color->ed;
+	color->ed = tmp;
+}
+
 void	draw_line_grad_low(t_image *img, t_pos p1, t_pos p2, t_color_grad *c)
 {
 	int	dx;
@@ -33,7 +42,7 @@ void	draw_line_grad_low(t_image *img, t_pos p1, t_pos p2, t_color_grad *c)
 	disc = 2 * dy - dx;
 	while (p1.x <= p2.x)
 	{
-		set_pixel(img, p1.x, p1.y, blend(c, (double)(p2.x - p1.x) / dx));
+		set_pixel_image(img, p1.x, p1.y, blend(c, (double)(p2.x - p1.x) / dx));
 		if (disc > 0)
 		{
 			p1.y += yi;
@@ -62,7 +71,7 @@ void	draw_line_grad_high(t_image *img, t_pos p1, t_pos p2, t_color_grad *c)
 	disc = 2 * dx - dy;
 	while (p1.y <= p2.y)
 	{
-		set_pixel(img, p1.x, p1.y, blend(c, (double)(p2.y - p1.y) / dy));
+		set_pixel_image(img, p1.x, p1.y, blend(c, (double)(p2.y - p1.y) / dy));
 		if (disc > 0)
 		{
 			p1.x += xi;

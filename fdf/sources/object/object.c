@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:08:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/08 14:30:22 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 16:25:38 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,51 +16,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-void	compute_camera_proj(t_obj3d *obj, t_camera *cam)
-{
-	int		idx;
-	static t_mat4	total;
-	// t_mat4	trans_proj;
-	// t_vec	rel_p;
-
-	// matmul(obj->rotation, cam->proj_mat, trans_proj);
-	// matmul(cam->proj_mat, obj->translation, tmp);
-	// matmul(tmp, obj->rotation, total);
-	// matmul(obj->translation, obj->transform, tmp);
-	matmul(cam->proj_mat, obj->transform, total);
-	// printf("\ntransform:\n");
-	// print_matrix(obj->transform);
-	// printf("\ncam:\n");
-	// print_matrix(cam->proj_mat);
-	// printf("\ntotal:\n");
-	// print_matrix(total);
-	// exit(0);
-	// matmul(cam->proj_mat, obj->transform, trans_proj);
-	// printf("trans proj mat:\n");
-	// print_matrix(trans_proj);
-	idx = 0;
-	while (idx < obj->n_vertices)
-	{
-		// rel_p = (t_vec){obj->v[idx].p.x + obj->center.x,
-		//  obj->v[idx].p.y + obj->center.y,
-		//  obj->v[idx].p.z + obj->center.z};
-		// proj_vec_to_vec4(trans_proj, obj->v[idx].p, obj->v[idx].scr_p);
-		// proj_vec_to_vec(obj->rotation, obj->v[idx].p, &rel_p);
-		// rel_p.x += obj->center.x;
-		// rel_p.y += obj->center.y;
-		// rel_p.z += obj->center.z;
-		// proj_vec_to_vec4(trans_proj, obj->v[idx].p, obj->v[idx].scr_p);
-		// proj_vec_to_vec4(cam->proj_mat, rel_p, obj->v[idx].scr_p);
-		proj_vec_to_vec4(total, obj->v[idx].p, obj->v[idx].scr_p);
-		if ((cam->type == PERSPECTIVE) && (obj->v[idx].scr_p[3] > 1e-6))
-		{
-			obj->v[idx].scr_p[0] /= obj->v[idx].scr_p[3];
-			obj->v[idx].scr_p[1] /= obj->v[idx].scr_p[3];
-		}
-		idx++;
-	}
-}
 
 void	init_transform_matrix(t_mat4 out, t_vec p)
 {

@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:14:41 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 17:31:29 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 16:47:32 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "utils/matrix.h"
+
+#include <stdio.h>
 
 void	matmul(t_mat4 a, t_mat4 b, t_mat4 out)
 {
@@ -68,14 +71,6 @@ void	copy_matrix_3d(t_mat4 dest, t_mat4 src)
 	}
 }
 
-// void	matmul_inplace(t_mat4 a, t_mat4 b)
-// {
-// 	static t_mat4	tmp;
-
-// 	matmul(a, b, tmp);
-// 	copy_matrix(a, tmp);
-// }
-
 void	proj_vec_to_vec4(t_mat4 m, t_vec v, t_vec4 out)
 {
 	out[0] = v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + m[0][3];
@@ -83,11 +78,20 @@ void	proj_vec_to_vec4(t_mat4 m, t_vec v, t_vec4 out)
 	out[2] = v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + m[2][3];
 	out[3] = v.x * m[3][0] + v.y * m[3][1] + v.z * m[3][2] + m[3][3];
 }
-void	proj_vec_to_vec(t_mat4 m, t_vec v, t_vec *out)
+
+void	adjust_unit_transform_matrix(t_mat4 mat)
 {
-	out->x = v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + m[0][3];
-	out->y = v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2] + m[1][3];
-	out->z = v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + m[2][3];
+	double	r1;
+	double	r2;
+	double	r3;
+
+	r1 = sqrt(mat[0][0] * mat[0][0] 
+		+ mat[1][0] * mat[1][0] + mat[2][0] * mat[2][0]);
+	r2 = sqrt(mat[0][1] * mat[0][1] 
+		+ mat[1][1] * mat[1][1] + mat[2][1] * mat[2][1]);
+	r3 = sqrt(mat[0][2] * mat[0][2] 
+		+ mat[1][2] * mat[1][2] + mat[2][2] * mat[2][2]);
+	printf("mag x=%.4f, y=%.4f, z=%.4f\n", r1, r2, r3);
 }
 
 #include <stdio.h>

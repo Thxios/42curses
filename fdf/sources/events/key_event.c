@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   key_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 01:04:42 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 16:15:43 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 19:07:26 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "update.h"
 #include "events/events.h"
 #include "camera/camera.h"
 
@@ -43,25 +44,25 @@ void	set_key_pressed(int keycode, t_keys *key, int pressed)
 		key->k_lshift = pressed;
 }
 
-void	keydown_trigger_event(int keycode)
+void	keydown_trigger_event(int keycode, t_upd *upd)
 {
 	if (keycode == KEY_ESCAPE)
-		quit_event();
+		quit_event(upd);
 	else if (keycode == KEY_TAB)
-		change_camera_type();
+		toggle_camera_type();
 }
 
-int	keydown_event(int keycode, t_keys *key)
+int	keydown_event(int keycode, t_upd *upd)
 {
 	// printf("keydown - code %d\n", keycode);
-	keydown_trigger_event(keycode);
-	set_key_pressed(keycode, key, 1);
+	keydown_trigger_event(keycode, upd);
+	set_key_pressed(keycode, &upd->key, 1);
 	return (0);
 }
 
-int	keyup_event(int keycode, t_keys *key)
+int	keyup_event(int keycode, t_upd *upd)
 {
 	// printf("keyup - code %d\n", keycode);
-	set_key_pressed(keycode, key, 0);
+	set_key_pressed(keycode, &upd->key, 0);
 	return (0);
 }

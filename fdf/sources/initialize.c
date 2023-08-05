@@ -3,19 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimlee <jimlee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:03:22 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/07 16:14:23 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/07/09 19:33:39 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "mlx.h"
+#include "libft.h"
+#include "config.h"
+#include "initialize.h"
+#include "events/events.h"
+#include "camera/camera.h"
 
-void	initialize_hook(t_upd *upd_var)
+
+void	initialize(t_upd *upd)
 {
-	mlx_hook(window(), 17, 0, quit_event, 0);
-	mlx_hook(window(), 2, 1 << 0, keydown_event, &upd_var->key);
-	mlx_hook(window(), 3, 1 << 1, keyup_event, &upd_var->key);
-	mlx_hook(window(), 4, 1 << 2, mousedown_event, 0);
+	ft_memset(upd, 0, sizeof(t_upd));
+	init_camera();
+	init_context();
+	launch_window(WIDTH, HEIGHT, "fdf");
+	initialize_mlx_hook(upd);
+}
+
+void	start_loop(void)
+{
+	mlx_loop(mlx());
 }

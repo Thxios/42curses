@@ -15,6 +15,8 @@
 #include "utils/matrix.h"
 #include "config.h"
 #include "render/draw_obj.h"
+#include <errno.h>
+#include "camera/camera.h"
 
 
 int x = 0;
@@ -113,24 +115,14 @@ t_obj3d *new_obj_test(void)
 
 int main(int argc, char *argv[])
 {
-	init_context();
-	launch_window(WIDTH, HEIGHT, "test");
-	// mlx_key_hook(window(), keydown_event, &keys);
-	mlx_hook(window(), 17, 0, quit_event, NULL);
-	mlx_hook(window(), 2, 1 << 0, keydown_event, &upd_var.key);
-	mlx_hook(window(), 3, 1 << 1, keyup_event, &upd_var.key);
-	mlx_hook(window(), 4, 1 << 2, mousedown_event, NULL);
-
-	printf("camera proj mat:\n");
-	print_matrix(camera()->proj_mat);
-
-	// img = new_image(1280, 960);
-	upd_var.img = new_image(WIDTH, HEIGHT);
+	init_camera();
+	printf("errno: %d\n", errno);
+	perror("error test");
 	if (argc == 2)
 	{
 		printf("read from %s\n", argv[1]);
 		int fd = open(argv[1], O_RDONLY);
-		upd_var.obj = new_from_file(fd);
+		upd_var.obj = read_object_from_file(fd);
 		close(fd);
 		translate_object(upd_var.obj, (t_vec){0, 0, 26});
 	}
@@ -139,6 +131,23 @@ int main(int argc, char *argv[])
 
 		upd_var.obj = new_obj_test2();
 	}
+	printf("errno: %d\n", errno);
+	perror("error test");
+	init_context();
+	launch_window(WIDTH, HEIGHT, "test");
+	// mlx_key_hook(window(), keydown_event, &keys);
+	printf("errno: %d\n", errno);
+	perror("error test");
+	mlx_hook(window(), 17, 0, quit_event, &upd_var);
+	mlx_hook(window(), 2, 1 << 0, keydown_event, &upd_var);
+	mlx_hook(window(), 3, 1 << 1, keyup_event, &upd_var);
+	mlx_hook(window(), 4, 1 << 2, mousedown_event, &upd_var);
+
+	printf("camera proj mat:\n");
+	print_matrix(camera()->proj_mat);
+
+	// img = new_image(1280, 960);
+	upd_var.img = new_image(WIDTH, HEIGHT);
 	rotate_object(upd_var.obj, (t_vec){0, 1, 0}, PI/4);
 	rotate_object(upd_var.obj, (t_vec){1, 0, 0}, -PI/4);
 	// translate(upd_var.obj, (t_vec){0, 0, 26});
@@ -154,6 +163,8 @@ int main(int argc, char *argv[])
 
 	// mlx_put_image_to_window(mlx(), window(), img->image, 0, 0);
 
+	printf("errno: %d\n", errno);
+	perror("error test");
 
 	mlx_loop_hook(mlx(), frame, &upd_var);
 	mlx_loop(mlx());
