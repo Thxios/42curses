@@ -6,33 +6,46 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:12:37 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/16 12:16:03 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/10 23:15:04 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "thread.h"
+
+void	wait_for_start(t_logger *logger)
+{
+	int	started;
+
+	started = 0;
+	while (!started)
+	{
+		usleep(10);
+		pthread_mutex_lock(&logger->mutex);
+		started = logger->running;
+		pthread_mutex_unlock(&logger->mutex);
+	}
+}
 
 void	*thread_job(void *arg_vptr)
 {
 	t_arg		*arg;
 	t_philo		*p;
 	t_logger	*logger;
+	int			started;
 
 	arg = arg_vptr;
 	p = arg->philo;
 	logger = arg->logger;
+	wait_for_start(logger);
 	philo_set_last_eat(p, logger->start_time);
-	philo_think(p, logger);
-	// while (1)
-    if (p->idx % 2 == 0) {
-        usleep(arg->time_eat / 10);
-    }
-	while (philo_get_num_eaten(p) < 7)
+	philo_think(p, logger, logger->start_time);
+	if (p->idx % 2 == 0)
+		usleep(arg->time_eat / 10);
+	while (1)
 	{
-		philo_eat(p, logger, arg->time_eat);
-		philo_sleep(p, logger, arg->time_sleep);
-		philo_think(p, logger);
+		philo_think(p, logger,
+			philo_sleep(p, logger, arg->time_sleep,
+				philo_eat(p, logger, arg->time_eat)));
 	}
-	// logger_print(logger, get_timestamp(), p->idx, "done");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:18:38 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/12 02:08:29 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/10 20:30:14 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	philo_set_last_eat(t_philo *p, t_us last_eat);
 int		philo_get_num_eaten(t_philo *p);
 void	philo_increase_num_eaten(t_philo *p);
 
-void	philo_eat(t_philo *p, t_logger *logger, t_us time_eat);
-void	philo_sleep(t_philo *p, t_logger *logger, t_us time_sleep);
-void	philo_think(t_philo *p, t_logger *logger);
+t_us	philo_eat(t_philo *p, t_logger *logger, t_us time_eat);
+t_us	philo_sleep(t_philo *p, t_logger *logger, t_us time_sleep, t_us start);
+void	philo_think(t_philo *p, t_logger *logger, t_us start);
 
 #endif

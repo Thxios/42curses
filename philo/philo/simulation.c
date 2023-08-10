@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:19:57 by jimlee            #+#    #+#             */
-/*   Updated: 2023/07/16 12:17:19 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/10 23:13:01 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ t_fork	*new_forks(int n)
 	idx = 0;
 	while (idx < n)
 	{
-		// if (idx % 2 == 1)
-			fork_init(&ret[idx], idx + 1);
-		// else
-			// fork_init(&ret[idx], -(idx + 1));
+		fork_init(&ret[idx]);
 		idx++;
 	}
 	return (ret);
@@ -45,105 +42,131 @@ t_philo	*new_philos(int n, t_fork *forks)
 	return (ret);
 }
 
-t_arg	*new_args(int n, t_philo *philos, t_logger *logger, t_us time_eat, t_us time_sleep)
+t_arg	*new_args(t_conf *cfg, t_philo *philos, t_logger *logger)
 {
 	int		idx;
 	t_arg	*ret;
 
-	ret = malloc(sizeof(t_arg) * n);
+	ret = malloc(sizeof(t_arg) * cfg->n_philo);
 	idx = 0;
-	while (idx < n)
+	while (idx < cfg->n_philo)
 	{
 		ret[idx].philo = &philos[idx];
 		ret[idx].logger = logger;
-		ret[idx].time_eat = time_eat;
-		ret[idx].time_sleep = time_sleep;
+		ret[idx].time_eat = cfg->time_die;
+		ret[idx].time_sleep = cfg->time_sleep;
 		idx++;
 	}
 	return (ret);
 }
 
-void	stop_philo_threads(int n, pthread_t *threads, t_logger *logger, int locked)
+void	stop_philo_threads(
+	int n, pthread_t *threads, t_logger *logger, int dead)
 {
-	int	idx;
+	int		idx;
+	t_us	end_time;
 
+	end_time = get_elapsed_time(logger->start_time);
+	pthread_mutex_lock(&logger->mutex);
+	logger->running = 0;
 	idx = 0;
-	if (!locked)
-		pthread_mutex_lock(&logger->mutex);
 	while (idx < n)
 	{
 		pthread_detach(threads[idx]);
 		idx++;
 	}
-	if (!locked)
-		pthread_mutex_unlock(&logger->mutex);
+	pthread_mutex_unlock(&logger->mutex);
+	if (dead > 0)
+		printf("%lli %d died\n", end_time / 1000, dead);
 }
 
-void	monitor(int n, t_philo *philos, int num_eat, t_us time_die,
-t_logger *logger, pthread_t *threads)
+void	monitor(
+	t_conf *cfg, t_philo *philos, t_logger *logger, pthread_t *threads)
 {
-	int	idx;
-	int	eaten;
+	int		idx;
+	int		eaten;
+	t_us	last_eat;
 
 	while (1)
 	{
 		idx = 0;
 		eaten = 0;
-		while (idx < n)
+		while (idx < cfg->n_philo)
 		{
-			if (philo_get_num_eaten(&philos[idx]) >= num_eat)
+			if (cfg->n_eat > 0
+				&& philo_get_num_eaten(&philos[idx]) >= cfg->n_eat)
 				eaten++;
-			if (get_elapsed_time(philo_get_last_eat(&philos[idx])) >= time_die)
-			{
-				pthread_mutex_lock(&logger->mutex);
-				printf("%lli %d died\n", 
-					get_elapsed_time(logger->start_time) / 1000, idx);
-				stop_philo_threads(n, threads, logger, 1);
-				pthread_mutex_unlock(&logger->mutex);
-				return ;
-			}
+			last_eat = philo_get_last_eat(&philos[idx]);
+			if (last_eat > 0
+				&& get_elapsed_time(last_eat) >= cfg->time_die + 1000)
+				return (stop_philo_threads
+					(cfg->n_philo, threads, logger, idx + 1));
 			idx++;
 		}
-		if (eaten == n)
+		if (eaten == cfg->n_philo)
 			break ;
 		usleep(100);
 	}
-	stop_philo_threads(n, threads, logger, 0);
+	stop_philo_threads(cfg->n_philo, threads, logger, 0);
 }
 
-void	run(int n)
+void	simul_init(t_simul *simul, t_conf *cfg, t_logger *logger)
 {
-	t_logger	logger;
-	t_philo		*philos;
-	t_fork		*forks;
-	t_arg		*args;
-	pthread_t	*threads;
-
-	forks = new_forks(n);
-	philos = new_philos(n, forks);
-	logger_init(&logger);
-	args = new_args(n, philos, &logger, 200000, 100000);
-	threads = malloc(sizeof(pthread_t) * n);
-	logger.start_time = get_timestamp();
-	for (int i = 0; i < n; i++)
-	{
-		philos[i].last_eat = logger.start_time;
-		pthread_create(&threads[i], 0, thread_job, &args[i]);
-	}
-	// for (int i = 0; i < n; i += 2)
-	// 	pthread_create(&threads[i], 0, thread_job, &args[i]);
-	// usleep(100);
-	// for (int i = 1; i < n; i += 2)
-	// 	pthread_create(&threads[i], 0, thread_job, &args[i]);
-	// if (n % 2 == 1)
-	// 	pthread_create(&threads[n - 1], 0, thread_job, &args[n - 1]);
-	// for (int i = 0; i < n; i++)
-	// {
-	// 	pthread_join(threads[i], 0);
-	// }
-	monitor(n, philos, 5, 601000, &logger, threads);
+	simul->forks = new_forks(cfg->n_philo);
+	simul->philos = new_philos(cfg->n_philo, simul->forks);
+	simul->args = new_args(cfg, simul->philos, logger);
 }
 
-int main() {
-	run(6);
+void	simul_delete(t_simul *simul, int n)
+{
+	int	idx;
+
+	idx = 0;
+	while (idx < n)
+	{
+		fork_delete(&simul->forks[idx]);
+		philo_delete(&simul->philos[idx]);
+	}
+	free(simul->forks);
+	free(simul->philos);
+	free(simul->args);
+}
+
+void	run(t_conf *cfg)
+{
+	t_simul		simul;
+	t_logger	logger;
+	pthread_t	*threads;
+	int			idx;
+
+	logger_init(&logger);
+	simul_init(&simul, cfg, &logger);
+	threads = malloc(sizeof(pthread_t) * cfg->n_philo);
+	idx = 0;
+	while (idx < cfg->n_philo)
+	{
+		pthread_create(&threads[idx], 0, thread_job, &simul.args[idx]);
+		idx++;
+	}
+	usleep(1000);
+	pthread_mutex_lock(&logger.mutex);
+	logger.running = 1;
+	logger.start_time = get_timestamp();
+	pthread_mutex_unlock(&logger.mutex);
+	usleep(1000);
+	monitor(cfg, simul.philos, &logger, threads);
+	free(threads);
+	simul_delete(&simul, cfg->n_philo);
+}
+
+int	main(int argc, char *argv[])
+{
+	t_conf	cfg;
+
+	cfg.n_philo = 19;
+	cfg.time_eat = 200 * 1000;
+	cfg.time_sleep = 100 * 1000;
+	cfg.time_die = 600 * 1000;
+	cfg.n_eat = 10;
+	run(&cfg);
 }
