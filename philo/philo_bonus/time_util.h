@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation.h                                       :+:      :+:    :+:   */
+/*   time_util.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 02:30:20 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 01:39:40 by jimlee           ###   ########.fr       */
+/*   Created: 2023/07/11 18:21:51 by jimlee            #+#    #+#             */
+/*   Updated: 2023/08/10 23:15:17 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMULATION_H
-# define SIMULATION_H
+#ifndef TIME_UTIL_H
+# define TIME_UTIL_H
 
-# include "config.h"
-# include "time_util.h"
-# include "fork.h"
-# include "philo.h"
-# include "thread.h"
-# include "logger.h"
+typedef long long	t_us;
 
-typedef struct s_simul
-{
-	t_philo		*philos;
-	t_fork		*forks;
-	t_arg		*args;
-}	t_simul;
-
-void	run_simul(t_conf *cfg);
-void	simul_init(t_simul *simul, t_conf *cfg, t_logger *logger);
-void	simul_delete(t_simul *simul, int n);
+t_us	get_timestamp(void);
+t_us	get_elapsed_time(t_us start);
+void	wait_from_until(t_us start, t_us duration);
 
 #endif
