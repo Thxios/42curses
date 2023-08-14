@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 01:33:09 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 17:07:55 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/14 17:26:17 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ t_us	philo_eat(t_simul *p, t_logger *logger, t_us time_eat)
 	wait_from_until(eat_start, time_eat);
 	sem_post(p->sem->fork);
 	sem_post(p->sem->fork);
-	pthread_mutex_lock(&p->m);
-	pthread_mutex_unlock(&p->m);
 	return (eat_start + time_eat);
 }
 
