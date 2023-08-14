@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation.c                                       :+:      :+:    :+:   */
+/*   simulation2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:19:57 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 01:38:23 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/14 14:36:56 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	simul_delete(t_simul *simul, int n)
 	{
 		fork_delete(&simul->forks[idx]);
 		philo_delete(&simul->philos[idx]);
+		idx++;
 	}
 	free(simul->forks);
 	free(simul->philos);

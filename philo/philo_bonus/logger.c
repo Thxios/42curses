@@ -5,31 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 01:13:15 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 14:11:51 by jimlee           ###   ########.fr       */
+/*   Created: 2023/08/14 15:05:32 by jimlee            #+#    #+#             */
+/*   Updated: 2023/08/14 16:40:40 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "logger.h"
+#include <stdio.h>
+#include <semaphore.h>
 
-void	logger_init(t_logger *logger)
+int	logger_init(t_logger *logger)
 {
-	pthread_mutex_init(&logger->mutex, 0);
-	logger->start_time = -1;
-	logger->running = 0;
+	logger->start = -1;
+	sem_unlink("logger");
+	logger->sem = sem_open("logger", O_CREAT | O_EXCL, 0644, 1);
+	if (logger->sem == SEM_FAILED)
+		return (-1);
+	return (0);
 }
 
 void	logger_delete(t_logger *logger)
 {
-	pthread_mutex_destroy(&logger->mutex);
+	sem_close(logger->sem);
+	sem_unlink("logger");
 }
 
-void	logger_print(t_logger *logger, t_us timestamp, int philo_idx, char *msg)
+void	logger_print(t_logger *logger, t_us timestamp, int p_idx, char *msg)
 {
-	pthread_mutex_lock(&logger->mutex);
-	if (logger->running)
-		printf("%lli %d %s\n",
-			(timestamp - logger->start_time) / 1000, philo_idx, msg);
-	pthread_mutex_unlock(&logger->mutex);
+	sem_wait(logger->sem);
+	printf("%lli %d %s\n",
+		(timestamp - logger->start) / 1000, p_idx, msg);
+	sem_post(logger->sem);
 }

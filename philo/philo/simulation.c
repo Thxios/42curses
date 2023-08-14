@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation2.c                                      :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 01:36:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 01:49:47 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/14 14:32:15 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	monitor(
 			last_eat = philo_get_last_eat(&philos[idx]);
 			if (last_eat > 0
 				&& get_elapsed_time(last_eat) >= cfg->time_die + 1000)
-				return (stop_threads
-					(cfg->n_philo, threads, logger, idx + 1));
+				return (stop_threads(cfg->n_philo, threads, logger, idx + 1));
 			idx++;
 		}
 		if (eaten == cfg->n_philo)
@@ -88,7 +87,6 @@ void	run_simul(t_conf *cfg)
 	pthread_mutex_unlock(&logger.mutex);
 	usleep(1000);
 	monitor(cfg, simul.philos, &logger, threads);
-	printf("monitor done\n");
 	free(threads);
 	simul_delete(&simul, cfg->n_philo);
 }

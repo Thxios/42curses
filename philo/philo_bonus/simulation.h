@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:30:20 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 01:50:54 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/14 16:55:46 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "config.h"
 
-void	run_simul(t_conf *cfg);
+int	run_simul(t_conf *cfg);
 
 #endif

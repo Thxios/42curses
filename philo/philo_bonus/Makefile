@@ -1,18 +1,15 @@
 
 CC =		gcc
-CFLAGS =	-Wall -Wextra -fsanitize=address
-# CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror
 
 NAME =	philo
 
 SRCS =	main.c \
-		fork.c \
 		philo.c \
-		philo2.c \
 		logger.c \
-		thread.c \
+		sem.c \
+		process.c \
 		simulation.c \
-		simulation2.c \
 		time_util.c \
 		utils.c
 OBJS =	$(SRCS:.c=.o)
@@ -24,7 +21,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -pthread $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJS)

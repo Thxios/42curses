@@ -1,7 +1,6 @@
 
 CC =		gcc
-CFLAGS =	-Wall -Wextra -fsanitize=address
-# CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror
 
 NAME =	philo
 
@@ -24,7 +23,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -pthread $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJS)

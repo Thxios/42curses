@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.h                                          :+:      :+:    :+:   */
+/*   logger.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 03:08:48 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 17:03:11 by jimlee           ###   ########.fr       */
+/*   Created: 2023/07/12 01:11:01 by jimlee            #+#    #+#             */
+/*   Updated: 2023/08/14 15:32:29 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROCESS_H
-# define PROCESS_H
+#ifndef LOGGER_H
+# define LOGGER_H
 
-# include <pthread.h>
-# include "config.h"
-# include "sem.h"
-# include "simulation.h"
-# include "logger.h"
+# include <semaphore.h>
 # include "time_util.h"
 
-typedef struct s_simul
+typedef struct s_logger
 {
-	int				idx;
-	t_us			time_eat;
-	t_us			time_sleep;
-	t_us			last_eat;
-	int				remain_eat;
-	t_sems			*sem;
-	t_logger		*logger;
-	pthread_mutex_t	m;
-}	t_simul;
+	sem_t	*sem;
+	t_us	start;
+}	t_logger;
 
-void	process_job(int pidx, t_conf *cfg, t_sems *sem, t_logger *logger);
+int		logger_init(t_logger *logger);
+void	logger_delete(t_logger *logger);
+void	logger_print(t_logger *logger, t_us timestamp, int p_idx, char *msg);
 
 #endif

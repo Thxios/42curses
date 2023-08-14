@@ -6,53 +6,47 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 01:33:09 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 16:24:36 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/14 17:07:55 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philo_init(t_philo *p, int idx, t_fork *fork1, t_fork *fork2)
-{
-	p->idx = idx;
-	p->num_eaten = 0;
-	p->first = fork1;
-	p->second = fork2;
-	p->last_eat = 0;
-	pthread_mutex_init(&p->mutex, 0);
-}
-
-void	philo_delete(t_philo *p)
-{
-	pthread_mutex_destroy(&p->mutex);
-}
-
-t_us	philo_eat(t_philo *p, t_logger *logger, t_us time_eat)
+t_us	philo_eat(t_simul *p, t_logger *logger, t_us time_eat)
 {
 	t_us	eat_start;
 
-	fork_lock(p->first);
+	sem_wait(p->sem->fork);
+	pthread_mutex_lock(&p->m);
 	logger_print(logger, get_timestamp(), p->idx, "has taken a fork");
-	fork_lock(p->second);
+	pthread_mutex_unlock(&p->m);
+	sem_wait(p->sem->fork);
 	eat_start = get_timestamp();
-	philo_set_last_eat(p, eat_start);
+	pthread_mutex_lock(&p->m);
+	p->last_eat = eat_start;
 	logger_print(logger, eat_start, p->idx, "has taken a fork");
 	logger_print(logger, eat_start, p->idx, "is eating");
+	pthread_mutex_unlock(&p->m);
 	wait_from_until(eat_start, time_eat);
-	fork_unlock(p->first);
-	fork_unlock(p->second);
-	philo_increase_num_eaten(p);
+	sem_post(p->sem->fork);
+	sem_post(p->sem->fork);
+	pthread_mutex_lock(&p->m);
+	pthread_mutex_unlock(&p->m);
 	return (eat_start + time_eat);
 }
 
-t_us	philo_sleep(t_philo *p, t_logger *logger, t_us time_sleep, t_us start)
+t_us	philo_sleep(t_simul *p, t_logger *logger, t_us time_sleep, t_us start)
 {
+	pthread_mutex_lock(&p->m);
 	logger_print(logger, start, p->idx, "is sleeping");
+	pthread_mutex_unlock(&p->m);
 	wait_from_until(start, time_sleep);
 	return (start + time_sleep);
 }
 
-void	philo_think(t_philo *p, t_logger *logger, t_us start)
+void	philo_think(t_simul *p, t_logger *logger, t_us start)
 {
+	pthread_mutex_lock(&p->m);
 	logger_print(logger, start, p->idx, "is thinking");
+	pthread_mutex_unlock(&p->m);
 }
