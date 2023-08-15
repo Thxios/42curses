@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:23:22 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 13:57:29 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:20:11 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_us	get_elapsed_time(t_us start)
 
 void	wait_from_until(t_us start, t_us duration)
 {
-	while (get_elapsed_time(start) < duration - 15)
-		usleep(10);
+	while (get_elapsed_time(start) < duration - 30)
+		usleep(20);
 }

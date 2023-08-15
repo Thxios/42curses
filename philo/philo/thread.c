@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:12:37 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 14:36:56 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:19:28 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	wait_for_start(t_logger *logger)
 	started = 0;
 	while (!started)
 	{
-		usleep(10);
+		usleep(20);
 		pthread_mutex_lock(&logger->mutex);
 		started = logger->running;
 		pthread_mutex_unlock(&logger->mutex);
@@ -41,7 +41,7 @@ void	*thread_job(void *arg_vptr)
 	philo_set_last_eat(p, logger->start_time);
 	philo_think(p, logger, logger->start_time);
 	if (p->idx % 2 == 1)
-		usleep(arg->time_eat / 10);
+		usleep(arg->time_eat / 5);
 	while (1)
 	{
 		philo_think(p, logger,

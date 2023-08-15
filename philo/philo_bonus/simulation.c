@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 03:05:02 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 17:00:48 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:24:18 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	kill_processes(int n, int *pids)
 	}
 }
 
+#include <assert.h>
+
 void	run_simul_internal(
 	t_conf *cfg, int *pids, t_sems *sem, t_logger *logger)
 {
@@ -77,6 +79,7 @@ void	run_simul_internal(
 		}
 		idx++;
 	}
+	assert(get_timestamp() < logger->start);
 	sem_post(sem->running);
 	monitor(cfg->n_philo, pids);
 	kill_processes(cfg->n_philo, pids);

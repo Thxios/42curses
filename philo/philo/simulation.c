@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 01:36:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 14:32:15 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/16 02:41:37 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ void	monitor(
 
 void	run_simul(t_conf *cfg)
 {
-	t_simul		simul;
-	t_logger	logger;
-	pthread_t	*threads;
-	int			idx;
+	t_simul			simul;
+	static t_logger	logger;
+	pthread_t		*threads;
+	int				idx;
 
 	logger_init(&logger);
 	simul_init(&simul, cfg, &logger);

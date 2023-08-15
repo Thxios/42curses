@@ -6,13 +6,15 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:05:32 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 16:40:40 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:22:42 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "logger.h"
 #include <stdio.h>
 #include <semaphore.h>
+
+#include <fcntl.h>
 
 int	logger_init(t_logger *logger)
 {

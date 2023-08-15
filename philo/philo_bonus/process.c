@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:25:08 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 17:26:00 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:25:23 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*thread_job(void *arg_vptr)
 	pthread_mutex_unlock(&arg->m);
 	philo_think(arg, logger, logger->start);
 	if (arg->idx % 2 == 1)
-		usleep(arg->time_eat / 10);
+		usleep(arg->time_eat / 5);
 	while (arg->remain_eat)
 	{
 		philo_think(arg, logger,
@@ -57,8 +57,8 @@ void	monitor_one(t_simul *arg, t_conf *cfg, t_logger *logger)
 				get_elapsed_time(logger->start) / 1000, arg->idx);
 			exit(1);
 		}
-		usleep(100);
-	}	
+		usleep(1000);
+	}
 }
 
 void	process_job(int pidx, t_conf *cfg, t_sems *sem, t_logger *logger)

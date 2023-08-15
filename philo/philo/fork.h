@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 04:19:49 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/10 23:08:55 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/16 02:28:50 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 
 typedef struct s_fork
 {
+	int				priority;
 	pthread_mutex_t	mutex;
 }	t_fork;
 
-void	fork_init(t_fork *fk);
+void	fork_init(t_fork *fk, int priority);
+// void	fork_init(t_fork *fk);
 void	fork_delete(t_fork *fk);
 void	fork_lock(t_fork *fk);
 void	fork_unlock(t_fork *fk);

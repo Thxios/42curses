@@ -6,11 +6,13 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:21:54 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 16:59:20 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/15 03:22:36 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sem.h"
+
+#include <fcntl.h>
 
 sem_t	*make_sem(int n, char *name)
 {

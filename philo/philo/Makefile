@@ -2,6 +2,7 @@
 CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror
 
+
 NAME =	philo
 
 SRCS =	main.c \
@@ -23,7 +24,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -pthread
 
 clean:
 	rm -f $(OBJS)
