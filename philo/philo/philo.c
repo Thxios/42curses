@@ -6,18 +6,19 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 01:33:09 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/16 02:30:15 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:23:03 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+#include <stdio.h>
 void	philo_init(t_philo *p, int idx, t_fork *fork1, t_fork *fork2)
 {
 	p->idx = idx;
 	p->num_eaten = 0;
-	// p->first = fork1;
-	// p->second = fork2;
+	p->first = fork1;
+	p->second = fork2;
 	if (fork1->priority > fork2->priority)
 	{
 		p->first = fork1;
@@ -28,6 +29,7 @@ void	philo_init(t_philo *p, int idx, t_fork *fork1, t_fork *fork2)
 		p->first = fork2;
 		p->second = fork1;
 	}
+	printf("philo %03d: fork1 %d, fork2 %d\n", idx, p->first->priority, p->second->priority);
 	p->last_eat = 0;
 	pthread_mutex_init(&p->mutex, 0);
 }

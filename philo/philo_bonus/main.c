@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:57:28 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/14 17:09:49 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:29:14 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parse_arg(t_conf *cfg, int argc, char *argv[])
 		cfg->n_eat = ft_atoi(argv[5]);
 	else
 		cfg->n_eat = 0;
-	if ((cfg->n_philo < 2) || (cfg->time_die < 0) || (cfg->time_eat < 0)
+	if ((cfg->n_philo < 1) || (cfg->time_die < 0) || (cfg->time_eat < 0)
 		|| (cfg->time_sleep < 0) || (cfg->n_eat < 0))
 		return (-1);
 	return (0);
