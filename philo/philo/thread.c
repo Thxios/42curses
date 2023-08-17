@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:12:37 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/16 20:23:07 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:13:43 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ void	wait_for_start(t_logger *logger)
 	}
 }
 
+void	start_cycle(t_philo *p, t_logger *logger, t_arg *arg)
+{
+	t_us	timestamp;
+
+	while (logger_get_running(logger))
+	{
+		timestamp = philo_eat(p, logger, arg->time_eat);
+		if (!logger_get_running(logger))
+			break ;
+		timestamp = philo_sleep(p, logger, arg->time_sleep, timestamp);
+		if (!logger_get_running(logger))
+			break ;
+		philo_think(p, logger, timestamp);
+	}
+}
+
 void	*thread_job(void *arg_vptr)
 {
 	t_arg		*arg;
@@ -40,11 +56,6 @@ void	*thread_job(void *arg_vptr)
 	philo_think(p, logger, logger->start_time);
 	if (p->idx % 2 == 1)
 		usleep(arg->time_eat / 5);
-	while (logger_get_running(logger))
-	{
-		philo_think(p, logger,
-			philo_sleep(p, logger, arg->time_sleep,
-				philo_eat(p, logger, arg->time_eat)));
-	}
+	start_cycle(p, logger, arg);
 	return (0);
 }

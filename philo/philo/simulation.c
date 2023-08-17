@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 01:36:13 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/16 20:59:42 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:14:45 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,10 @@ void	stop_threads(int n, pthread_t *threads, t_logger *logger, int dead)
 	pthread_mutex_unlock(&logger->mutex);
 	if (dead > 0)
 		printf("%lli %d died\n", end_time / 1000, dead);
-	// pthread_mutex_destroy(&logger->mutex);
 	idx = 0;
 	while (idx < n)
 	{
-		// pthread_detach(threads[idx]);
-		// if (dead > 0)
-		// 	pthread_detach(threads[idx]);
-		// else
-			pthread_join(threads[idx], 0);
+		pthread_join(threads[idx], 0);
 		idx++;
 	}
 }
@@ -71,11 +66,10 @@ void	monitor(
 
 void	run_simul(t_conf *cfg)
 {
-	t_simul			simul;
-	static t_logger	logger;
-	// t_logger	logger;
-	pthread_t		*threads;
-	int				idx;
+	t_simul		simul;
+	t_logger	logger;
+	pthread_t	*threads;
+	int			idx;
 
 	logger_init(&logger);
 	simul_init(&simul, cfg, &logger);
@@ -93,8 +87,7 @@ void	run_simul(t_conf *cfg)
 	pthread_mutex_unlock(&logger.mutex);
 	usleep(1000);
 	monitor(cfg, simul.philos, &logger, threads);
-	// pthread_mutex_lock(&logger.mutex);
 	free(threads);
-	// logger_delete(&logger.mutex);
+	logger_delete(&logger);
 	simul_delete(&simul, cfg->n_philo);
 }

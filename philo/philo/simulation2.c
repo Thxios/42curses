@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:19:57 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/16 02:31:18 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:10:32 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_fork	*new_forks(int n)
 	idx = 0;
 	while (idx < n)
 	{
-		// fork_init(&ret[idx]);
 		if (idx % 2 == 1)
 			fork_init(&ret[idx], -(idx + 1));
 		else

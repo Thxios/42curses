@@ -6,7 +6,7 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:57:28 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/16 20:29:25 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/17 19:15:51 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	run_simul(&cfg);
-	printf("main exit\n");
 	return (0);
 }
