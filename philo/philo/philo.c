@@ -6,11 +6,12 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 01:33:09 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/17 19:10:13 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/18 14:28:41 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 void	philo_init(t_philo *p, int idx, t_fork *fork1, t_fork *fork2)
 {
@@ -18,16 +19,6 @@ void	philo_init(t_philo *p, int idx, t_fork *fork1, t_fork *fork2)
 	p->num_eaten = 0;
 	p->first = fork1;
 	p->second = fork2;
-	if (fork1->priority > fork2->priority)
-	{
-		p->first = fork1;
-		p->second = fork2;
-	}
-	else
-	{
-		p->first = fork2;
-		p->second = fork1;
-	}
 	p->last_eat = -1;
 	pthread_mutex_init(&p->mutex, 0);
 }
@@ -43,7 +34,14 @@ t_us	philo_eat(t_philo *p, t_logger *logger, t_us time_eat)
 
 	fork_lock(p->first);
 	logger_print(logger, get_timestamp(), p->idx, "has taken a fork");
-	fork_lock(p->second);
+	if (p->first != p->second)
+		fork_lock(p->second);
+	else
+	{
+		while (logger_get_running(logger))
+			usleep(100);
+		return (-1);
+	}
 	eat_start = get_timestamp();
 	philo_set_last_eat(p, eat_start);
 	logger_print(logger, eat_start, p->idx, "has taken a fork");

@@ -24,7 +24,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ -pthread
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJS)

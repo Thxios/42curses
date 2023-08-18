@@ -6,15 +6,14 @@
 /*   By: jimlee <jimlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 02:17:10 by jimlee            #+#    #+#             */
-/*   Updated: 2023/08/17 19:15:40 by jimlee           ###   ########.fr       */
+/*   Updated: 2023/08/18 14:28:18 by jimlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fork.h"
 
-void	fork_init(t_fork *fk, int priority)
+void	fork_init(t_fork *fk)
 {
-	fk->priority = priority;
 	pthread_mutex_init(&fk->mutex, 0);
 }
 
