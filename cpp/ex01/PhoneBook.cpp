@@ -59,7 +59,7 @@ void PhoneBook::DisplayContacts() const {
 
 
 void PhoneBook::DisplayContactbyIndex(int idx) const {
-    if (idx < 0 && idx >= size) {
+    if (idx < 0 || idx >= size) {
         std::cout << "invalid index: " << idx << std::endl;
         return;
     }
