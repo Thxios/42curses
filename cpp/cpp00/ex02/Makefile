@@ -1,7 +1,7 @@
 
 CC =		cc
 CCC =		c++
-CFLAGS =	-Wall -Wextra -Werror
+CXXFLAGS =	-Wall -Wextra -Werror -std=c++98
 
 
 NAME =	bank
@@ -15,10 +15,10 @@ OBJS =	$(SRCS:.cpp=.o)
 all: $(NAME)
 
 %.o: %.cpp
-	$(CCC) $(CFLAGS) -c $^ -o $@
+	$(CCC) $(CXXFLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
-	$(CCC) $(CFLAGS) $^ -o $@
+	$(CCC) $(CXXFLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJS)
