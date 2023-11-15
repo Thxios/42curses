@@ -7,16 +7,13 @@
 
 class PhoneBook {
 public:
-    PhoneBook(): size(0) {}
-    PhoneBook(const PhoneBook& other);
-    PhoneBook& operator=(const PhoneBook& other);
-    ~PhoneBook() {}
+    PhoneBook();
 
     void AddContact(const Contact& contact);
     void DisplayContacts() const;
     void DisplayContactbyIndex(int idx) const;
 
 private:
-    int size;
+    int size, last_idx;
     Contact contacts[MAX_SIZE];
 };

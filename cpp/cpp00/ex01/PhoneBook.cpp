@@ -5,33 +5,28 @@
 
 
 
-PhoneBook::PhoneBook(const PhoneBook& other)
-: size(other.size), contacts(other.contacts) {}
-
-
-PhoneBook& PhoneBook::operator=(const PhoneBook& other) {
-    size = other.size;
-    for (int i = 0; i < other.size; i++) {
-        contacts[i] = other.contacts[i];
-    }
-    return *this;
-}
+PhoneBook::PhoneBook(): size(0), last_idx(0) {}
 
 
 void PhoneBook::AddContact(const Contact& contact) {
+    int idx;
     if (size >= MAX_SIZE) {
-        std::cout << "PhoneBook is full" << std::endl;
-        return;
+        idx = last_idx;
+        last_idx = (last_idx + 1) % MAX_SIZE;
     }
-    contacts[size++] = contact;
+    else {
+        idx = size;
+        size++;
+    }
+    contacts[idx] = contact;
 }
 
 
 std::string GetTruncated(const std::string& s, size_t n) {
-    if (s.size() > n) {
+    if (s.size() > n)
         return s.substr(0, n - 1) + ".";
-    }
-    return s;
+    else
+        return s;
 }
 
 
