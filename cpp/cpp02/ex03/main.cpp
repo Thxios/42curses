@@ -21,8 +21,8 @@ int main( void ) {
         Point a(2, 2);
         Point b(0, 5);
         Point c(4, 4);
-        Point x(1, 5);
-        Point y(1, 4);
+        Point x(1, 4);
+        Point y(1, 5);
         Point z(3, 3);
 
         std::cout << "IN   " << bsp(a, b, c, x) << std::endl;
